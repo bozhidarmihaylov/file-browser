@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hPu-5O-D4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -11,7 +12,7 @@
         <!--/-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FileBrowserViewController" id="BYZ-38-t0r" customClass="FileBrowserViewController" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FileBrowserViewController" id="BYZ-38-t0r" customClass="FileBrowserVc" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,10 +49,11 @@
                     <navigationItem key="navigationItem" title="/" id="fMU-ue-Vyx">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="Wz3-Ct-xet">
                             <connections>
-                                <action selector="didTapSettings:" destination="BYZ-38-t0r" id="IMf-L9-iwe"/>
+                                <action selector="onRightButtonItemTap:" destination="BYZ-38-t0r" id="IMf-L9-iwe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="sjT-aw-9q1" id="kAy-aZ-c7J"/>
                     </connections>
@@ -60,44 +62,10 @@
             </objects>
             <point key="canvasLocation" x="973.28244274809151" y="-2.1126760563380285"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Xmx-3B-dpN">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hPu-5O-D4Y" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nz9-b0-SdY">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="kPx-SR-yIN"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lu4-Q5-Jia" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="46.564885496183201" y="-2.1126760563380285"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="SWv-38-E03">
-            <objects>
-                <navigationController id="6xt-qs-5go" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PzB-KS-xIr">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="cRR-lH-wkZ" kind="relationship" relationship="rootViewController" id="8Np-nU-NIx"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZuT-r9-T6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1892" y="-2"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="eTi-4o-reM">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsViewController" id="cRR-lH-wkZ" customClass="SettingsViewController" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="cRR-lH-wkZ" customClass="SettingsVc" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="dsP-dW-x7d">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,8 +79,7 @@
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Save"/>
                                     <connections>
-                                        <action selector="didTapSave:" destination="Gru-l0-L2a" eventType="touchUpInside" id="cgB-ZU-VIN"/>
-                                        <action selector="didTapSave:" destination="cRR-lH-wkZ" eventType="touchUpInside" id="d6z-S5-APk"/>
+                                        <action selector="didTapSave:" destination="cRR-lH-wkZ" eventType="touchUpInside" id="a4d-AH-Rrk"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -218,23 +185,23 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="rectangle.portrait.and.arrow.forward" catalog="system" id="bT4-Bc-scW">
                             <connections>
-                                <action selector="didTapLogout:" destination="cRR-lH-wkZ" id="Wzc-tF-4LJ"/>
+                                <action selector="didTapLogout:" destination="cRR-lH-wkZ" id="CAK-O2-u48"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="accessKey" destination="3ji-SY-Rdd" id="ScY-L5-pJq"/>
-                        <outlet property="backButton" destination="VTy-SY-Cdy" id="L8U-pK-2Ox"/>
-                        <outlet property="bucketName" destination="rS7-oh-6mW" id="uDl-eU-YwU"/>
-                        <outlet property="logoutButton" destination="bT4-Bc-scW" id="OaZ-fn-UeE"/>
-                        <outlet property="saveButton" destination="n4s-ry-duI" id="1Mg-cy-rsb"/>
-                        <outlet property="secretKey" destination="aAX-1c-gXG" id="aK6-bp-Eu5"/>
+                        <outlet property="_accessKeyTextField" destination="3ji-SY-Rdd" id="ScY-L5-pJq"/>
+                        <outlet property="_backButtonItem" destination="VTy-SY-Cdy" id="L8U-pK-2Ox"/>
+                        <outlet property="_bucketNameTextField" destination="rS7-oh-6mW" id="uDl-eU-YwU"/>
+                        <outlet property="_logoutButtonItem" destination="bT4-Bc-scW" id="OaZ-fn-UeE"/>
+                        <outlet property="_saveButton" destination="n4s-ry-duI" id="1Mg-cy-rsb"/>
+                        <outlet property="_secretKeyTextField" destination="aAX-1c-gXG" id="aK6-bp-Eu5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X76-hA-IOS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Gru-l0-L2a" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2837" y="-2"/>
+            <point key="canvasLocation" x="1666" y="-2"/>
         </scene>
     </scenes>
     <resources>

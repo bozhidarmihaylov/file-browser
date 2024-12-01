@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D56" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Bucket" representedClassName=".BundleModel" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Entry" inverseName="bucket" inverseEntity="Entry"/>
+    </entity>
+    <entity name="Entry" representedClassName=".EntryModel" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="isFolder" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="path" attributeType="String"/>
+        <relationship name="bucket" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bucket" inverseName="entries" inverseEntity="Bucket"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder" inverseName="children" inverseEntity="Folder"/>
+    </entity>
+    <entity name="File" representedClassName=".FileModel" parentEntity="Entry" syncable="YES" codeGenerationType="class">
+        <attribute name="loadingState" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sizeBytes" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="updateDate" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="download" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transfer" inverseName="file" inverseEntity="Transfer"/>
+    </entity>
+    <entity name="Folder" representedClassName=".FolderModel" parentEntity="Entry" syncable="YES" codeGenerationType="class">
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Entry" inverseName="parent" inverseEntity="Entry"/>
+    </entity>
+    <entity name="Transfer" representedClassName=".TransferModel" syncable="YES" codeGenerationType="class">
+        <attribute name="bucketName" attributeType="String"/>
+        <attribute name="path" attributeType="String"/>
+        <attribute name="taskIdentifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="file" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="download" inverseEntity="File"/>
+    </entity>
+</model>

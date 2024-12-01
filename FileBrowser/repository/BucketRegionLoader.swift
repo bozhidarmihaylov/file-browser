@@ -7,16 +7,21 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 protocol BucketRegionLoader {
     func loadRegion(with bucketName: String) async throws -> String
 }
 
-enum BucketRegionLoaderError: Swift.Error {
+enum BucketRegionLoaderError: Swift.Error, Equatable {
     case invalidBucketName
     case notFound
 }
 
 struct BucketRegionLoaderImpl: BucketRegionLoader {
+    static let shared: BucketRegionLoader = BucketRegionLoaderImpl(
+        httpClient: HttpClientImpl.shared
+    )
+
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
@@ -43,10 +48,6 @@ struct BucketRegionLoaderImpl: BucketRegionLoader {
         
         return result
     }
-    
-    static let shared: BucketRegionLoader = BucketRegionLoaderImpl(
-        httpClient: HttpClientImpl.shared
-    )
     
     private enum Copy {
         static let head = "HEAD"

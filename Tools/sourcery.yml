@@ -1,0 +1,10 @@
+sources:
+  - ../FileBrowser/
+  - ../FileBrowserTests/
+templates:
+  - ./Templates/AutoMockable.stencil
+output:
+  ../FileBrowserTests/Generated
+args:
+  autoMockableImports: {Foundation}
+  autoMockableTestableImports: {FileBrowser}

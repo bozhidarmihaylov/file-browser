@@ -1,0 +1,31 @@
+{
+  "entitiesPositions" : {
+    "Folder" : [
+      110,
+      285
+    ],
+    "File" : [
+      400,
+      66
+    ],
+    "Canvas...Position" : [
+      0,
+      0
+    ],
+    "Entry" : [
+      400,
+      246
+    ],
+    "Transfer" : [
+      690,
+      66
+    ],
+    "Bucket" : [
+      687,
+      266
+    ]
+  },
+  "information" : {
+
+  }
+}
