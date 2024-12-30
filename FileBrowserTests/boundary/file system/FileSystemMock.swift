@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class FileSystemMock: FileSystem {
     var temporaryDirectoryUrl: URL = URL(string: "http://abv.bg/")!

@@ -12,7 +12,7 @@
         <!--/-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FileBrowserViewController" id="BYZ-38-t0r" customClass="FileBrowserVc" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FileBrowserViewController" id="BYZ-38-t0r" customClass="FileBrowserVc" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
         <!--Settings-->
         <scene sceneID="eTi-4o-reM">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsViewController" id="cRR-lH-wkZ" customClass="SettingsVc" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="cRR-lH-wkZ" customClass="SettingsVc" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="dsP-dW-x7d">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class LoadingStateSyncerMock: LoadingStateSyncer {
     func syncedLoadingStates(for entries: [Entry]) async throws -> [Entry] {

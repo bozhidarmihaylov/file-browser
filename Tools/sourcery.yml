@@ -1,5 +1,5 @@
 sources:
-  - ../FileBrowser/
+  - ../App/
   - ../FileBrowserTests/
 templates:
   - ./Templates/AutoMockable.stencil
@@ -7,4 +7,4 @@ output:
   ../FileBrowserTests/Generated
 args:
   autoMockableImports: {Foundation}
-  autoMockableTestableImports: {FileBrowser}
+  autoMockableTestableImports: {App}

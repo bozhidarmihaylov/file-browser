@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class BucketRegionLoaderMock: BucketRegionLoader {
     func loadRegion(with bucketName: String) async throws -> String {

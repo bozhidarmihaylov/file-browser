@@ -6,17 +6,20 @@
 //
 
 import UIKit
+import App
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var handleEventsForBackgroundURLSessionCompletionHandler: (() -> Void)? = nil
+class AppDelegate: UIResponder, UIApplicationDelegate, BackgroundSessionEventsCompletionProvider {
+    var backgroundSessionEventsCompletion: (() -> Void)?
     
     func application(
         _ application: UIApplication,
         handleEventsForBackgroundURLSession identifier: String,
         completionHandler: @escaping () -> Void
     ) {
-        self.handleEventsForBackgroundURLSessionCompletionHandler = completionHandler
+        backgroundSessionEventsCompletion = completionHandler
+        HttpClientImpl.shared.backgroundSessionEventsCompletionProvider = self
+        
         Task.detached {
             await HttpClientImpl.shared.clearHangDownloads()
         }

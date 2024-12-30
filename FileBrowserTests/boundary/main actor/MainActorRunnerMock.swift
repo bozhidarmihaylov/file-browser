@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class MainActorRunnerMock: MainActorRunner {
     func run<T>(body: @Sendable () throws -> T) async rethrows -> T {

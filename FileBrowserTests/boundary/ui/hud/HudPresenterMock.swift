@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class HudPresenterMock: HudPresenter {
     func setShown(_ shown: Bool, on view: View) {

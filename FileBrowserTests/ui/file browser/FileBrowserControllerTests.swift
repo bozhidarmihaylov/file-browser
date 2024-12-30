@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import FileBrowser
+@testable import App
 
 final class FileBrowserControllerTests: TestCase {
     func testOnInit_called_subsribesToWillEnterForegroundNotification() throws {

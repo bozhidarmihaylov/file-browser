@@ -5,7 +5,7 @@
 //  Created by Bozhidar Mihaylov
 //
 
-@testable import FileBrowser
+@testable import App
 
 final class FileBrowserCellVmFactoryMock: FileBrowserCellVmFactory {
     func createVm(entry: Entry) -> EntryCellVm {

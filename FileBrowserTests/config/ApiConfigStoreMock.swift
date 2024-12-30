@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class ApiConfigStoreMock: ApiConfigStore {
     var config: (ApiConfig)?

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class NotificationSubjectMock: NotificationSubject {
     func subscribe(name: String, object: AnyObject?) -> AnyAsyncSequence<Notification> {

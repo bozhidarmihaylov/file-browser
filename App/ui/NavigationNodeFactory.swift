@@ -16,7 +16,12 @@ protocol NavigationNodeFactory {
 struct NavigationNodeFactoryImpl: NavigationNodeFactory {
     static let shared: NavigationNodeFactory = NavigationNodeFactoryImpl()
     
-    init(storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)) {
+    init(
+        storyboard: UIStoryboard = UIStoryboard(
+            name: "Main",
+            bundle: Bundle(for: FileBrowser.self)
+        )
+    ) {
         self.storyboard = storyboard
     }
     
@@ -65,7 +70,7 @@ struct NavigationNodeFactoryImpl: NavigationNodeFactory {
     private func createVc(identifier: String) -> UIViewController {
         let storyboard = UIStoryboard(
             name: "Main",
-            bundle: nil
+            bundle: Bundle(for: FileBrowser.self)
         )
         
         let vc = storyboard.instantiateViewController(

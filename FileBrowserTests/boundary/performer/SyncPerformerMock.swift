@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import FileBrowser
+@testable import App
 
 final class SyncPerformerMock: SyncPerformer {
     func sync<T>(_ closure: () throws -> T) rethrows -> T {

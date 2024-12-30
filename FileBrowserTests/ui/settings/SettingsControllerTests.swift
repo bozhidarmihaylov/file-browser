@@ -34,7 +34,7 @@ import Foundation
 //) {
 
 import XCTest
-@testable import FileBrowser
+@testable import App
 
 final class SettingsControllerTests: TestCase {
     

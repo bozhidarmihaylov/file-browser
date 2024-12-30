@@ -9,8 +9,10 @@ import Foundation
 import CoreData
 import UIKit
 
-final class HttpClientImpl: NSObject {
-    static let shared: HttpClientImpl = HttpClientImpl()
+public final class HttpClientImpl: NSObject {
+    public static let shared: HttpClientImpl = HttpClientImpl()
+    
+    public var backgroundSessionEventsCompletionProvider: BackgroundSessionEventsCompletionProvider? = nil
     
     weak var transferDelegate: HttpTransferDelegate? = nil
     
@@ -46,7 +48,7 @@ extension HttpClientImpl: HttpTransferClient {
         )
     }
     
-    func clearHangDownloads() async {
+    public func clearHangDownloads() async {
         let tasks = await runningDownloads()
         
         self.transferDelegate?.didRecreateBackgroundSession(with: tasks)
@@ -60,7 +62,7 @@ extension HttpClientImpl: HttpTransferClient {
 }
 
 extension HttpClientImpl: URLSessionDownloadDelegate {
-    func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    public func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         guard let error else { return }
         
         transferDelegate?.didFailDownloading(
@@ -69,7 +71,7 @@ extension HttpClientImpl: URLSessionDownloadDelegate {
         )
     }
     
-    func urlSession(
+    public func urlSession(
         _ session: URLSession,
         downloadTask: URLSessionDownloadTask,
         didFinishDownloadingTo location: URL
@@ -80,7 +82,7 @@ extension HttpClientImpl: URLSessionDownloadDelegate {
         )
     }
     
-    func urlSessionDidFinishEvents(
+    public func urlSessionDidFinishEvents(
         forBackgroundURLSession session: URLSession
     ) {
         guard session.configuration.identifier == Copy.downloadConfigId else { return }
@@ -89,12 +91,11 @@ extension HttpClientImpl: URLSessionDownloadDelegate {
             await self.clearHangDownloads()
             
             await MainActor.run {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                      let backgroundCompletionHandler =
-                        appDelegate.handleEventsForBackgroundURLSessionCompletionHandler
+                guard let completion = self.backgroundSessionEventsCompletionProvider?
+                    .backgroundSessionEventsCompletion
                 else { return }
                 
-                backgroundCompletionHandler()
+                completion()
             }
         }
     }

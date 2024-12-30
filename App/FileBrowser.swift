@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class FileBrowser {
-    static let shared = FileBrowser()
+public final class FileBrowser {
+    public static let shared = FileBrowser()
     
-    func createRootVc() -> UIViewController {
+    public func createRootVc() -> UIViewController {
         apiConfigProvider.config
             .map { _ in
                 navigationNodeFactory.createFileBrowserNode(

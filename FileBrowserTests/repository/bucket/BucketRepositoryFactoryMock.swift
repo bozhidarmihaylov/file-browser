@@ -5,7 +5,7 @@
 //  Created by Bozhidar Mihaylov
 //
 
-@testable import FileBrowser
+@testable import App
 
 final class BucketRepositoryFactoryMock: BucketRepositoryFactory {
     func createBucketRepository() throws -> BucketRepository? {

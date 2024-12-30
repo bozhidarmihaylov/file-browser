@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import FileBrowser
+@testable import App
 
 final class BucketRegionLoaderTests: TestCase {
     func testLoadRegion_networkException_rethrowsIt() async throws {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D56" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Bucket" representedClassName=".BundleModel" syncable="YES" codeGenerationType="class">
+    <entity name="Bucket" representedClassName=".BucketModel" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Entry" inverseName="bucket" inverseEntity="Entry"/>
     </entity>

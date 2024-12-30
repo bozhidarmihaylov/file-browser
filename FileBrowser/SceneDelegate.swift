@@ -7,6 +7,7 @@
 
 import UIKit
 import XMLCoder
+import App
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
