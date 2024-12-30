@@ -1,24 +1,6 @@
 {
-  "originHash" : "13fe283d8ee4dc261f24521cbea52dee74e577b60267ffc73b0cb75075584f6f",
+  "originHash" : "338edc65c40190dc5aeb2be4518811ecc2a4f47db458e7964a5db3760223134b",
   "pins" : [
-    {
-      "identity" : "aws-crt-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/awslabs/aws-crt-swift",
-      "state" : {
-        "revision" : "37ab536aa6dc9e7c1bdfea950ad4787cd2eba34a",
-        "version" : "0.39.0"
-      }
-    },
-    {
-      "identity" : "aws-sdk-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/awslabs/aws-sdk-swift.git",
-      "state" : {
-        "revision" : "cba90986a4c36ca6c92b5a693f6bb78f186b9d2c",
-        "version" : "1.0.49"
-      }
-    },
     {
       "identity" : "keychainaccess",
       "kind" : "remoteSourceControl",
@@ -35,42 +17,6 @@
       "state" : {
         "revision" : "9364904a42cb25f58d026451140c4080a868e72e",
         "version" : "14.1.3"
-      }
-    },
-    {
-      "identity" : "smithy-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/smithy-lang/smithy-swift",
-      "state" : {
-        "revision" : "a90fc59d6c5441233a997b40b3f38fcb3c8993bb",
-        "version" : "0.97.0"
-      }
-    },
-    {
-      "identity" : "swift-async-algorithms",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-async-algorithms.git",
-      "state" : {
-        "revision" : "4c3ea81f81f0a25d0470188459c6d4bf20cf2f97",
-        "version" : "1.0.3"
-      }
-    },
-    {
-      "identity" : "swift-collections",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections.git",
-      "state" : {
-        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
-        "version" : "1.1.4"
-      }
-    },
-    {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log.git",
-      "state" : {
-        "revision" : "96a2f8a0fa41e9e09af4585e2724c4e825410b91",
-        "version" : "1.6.2"
       }
     },
     {

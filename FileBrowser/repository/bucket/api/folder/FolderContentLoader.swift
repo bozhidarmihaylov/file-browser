@@ -52,7 +52,7 @@ final class FolderContentLoaderImpl: FolderContentLoader {
             pageSize: pageSize,
             with: config
         )
-        
+
         let (xmlData, _) = try await httpClient.data(for: request)
         
         let listBucketResult = try xmlDecoder.fromXmlData(xmlData, type: ListBucketResult.self)

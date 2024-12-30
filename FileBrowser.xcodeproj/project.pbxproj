@@ -12,19 +12,15 @@
 		831532392D05017A0063F0E3 /* FileBrowserNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F2BDD2CFFB6B500735166 /* FileBrowserNavigator.swift */; };
 		8315323A2D05017A0063F0E3 /* HudPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839516A32D04BCFD00E92EA4 /* HudPresenterImpl.swift */; };
 		8315323B2D05017A0063F0E3 /* FileBrowserCellVmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F2BE22CFFBA1300735166 /* FileBrowserCellVmFactory.swift */; };
-		8315323C2D05017A0063F0E3 /* S3ListObjectsSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839606362CFD11B4007B921E /* S3ListObjectsSequence.swift */; };
 		8315323D2D05017A0063F0E3 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314EC02CFD36B10057906F /* FileSystem.swift */; };
-		8315323E2D05017A0063F0E3 /* S3Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314EBA2CFD24500057906F /* S3Impl.swift */; };
 		8315323F2D05017A0063F0E3 /* SettingsNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395169F2D04BA8000E92EA4 /* SettingsNavigator.swift */; };
 		831532402D05017A0063F0E3 /* NavigationNodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F2BE42CFFBFB100735166 /* NavigationNodeFactory.swift */; };
-		831532412D05017A0063F0E3 /* S3ListObjectsSequenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314EC32CFD3D5D0057906F /* S3ListObjectsSequenceImpl.swift */; };
 		831532422D05017A0063F0E3 /* JsonAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D40C32CF7C82C009FF6E7 /* JsonAdapter.swift */; };
 		831532432D05017A0063F0E3 /* NotificationSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F2BD52CFD922F00735166 /* NotificationSubject.swift */; };
 		831532442D05017A0063F0E3 /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314ED42CFD592F0057906F /* EntryCell.swift */; };
 		831532452D05017A0063F0E3 /* FileBrowserVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F7B2D2CF32AEE005BABE1 /* FileBrowserVc.swift */; };
 		831532462D05017A0063F0E3 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395168B2D04B08A00E92EA4 /* View.swift */; };
 		831532472D05017A0063F0E3 /* SettingsVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D40AE2CF68F12009FF6E7 /* SettingsVc.swift */; };
-		831532482D05017A0063F0E3 /* S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F9E3D42CF3CA9500C7A650 /* S3.swift */; };
 		831532492D05017A0063F0E3 /* SettingsNavigatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839516A12D04BA9600E92EA4 /* SettingsNavigatorImpl.swift */; };
 		8315324A2D05017A0063F0E3 /* BucketRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F9E3CC2CF3BE0A00C7A650 /* BucketRepository.swift */; };
 		8315324B2D05017A0063F0E3 /* LoadingRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314ED82CFD66500057906F /* LoadingRegistry.swift */; };
@@ -43,9 +39,7 @@
 		831532582D05017A0063F0E3 /* BucketRegionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D40CC2CF7DDB2009FF6E7 /* BucketRegionLoader.swift */; };
 		831532592D05017A0063F0E3 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839516862D04A74900E92EA4 /* TextField.swift */; };
 		8315325A2D05017A0063F0E3 /* TextFieldImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839516882D04A76300E92EA4 /* TextFieldImpl.swift */; };
-		8315325B2D05017A0063F0E3 /* S3ClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D40D52CF8285B009FF6E7 /* S3ClientFactory.swift */; };
 		8315325C2D05017A0063F0E3 /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D40BA2CF7B1D5009FF6E7 /* Bucket.swift */; };
-		8315325D2D05017A0063F0E3 /* SdkEntryPageSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F9E3D82CF5249800C7A650 /* SdkEntryPageSequence.swift */; };
 		8315325E2D05017A0063F0E3 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395167B2D01988C00E92EA4 /* SettingsController.swift */; };
 		8315325F2D05017A0063F0E3 /* NotificationSubjectImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F2BD92CFF909F00735166 /* NotificationSubjectImpl.swift */; };
 		831532602D05017A0063F0E3 /* EntryCellVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314ED02CFD55100057906F /* EntryCellVm.swift */; };
@@ -62,11 +56,6 @@
 		8315326B2D0501950063F0E3 /* FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831532272D04FDBB0063F0E3 /* FileBrowser.swift */; };
 		8315326D2D0502050063F0E3 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 8315326C2D0502050063F0E3 /* KeychainAccess */; };
 		8315326F2D0502160063F0E3 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 8315326E2D0502160063F0E3 /* ProgressHUD */; };
-		831532712D05026B0063F0E3 /* AWSConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 831532702D05026B0063F0E3 /* AWSConnect */; };
-		831532732D05026B0063F0E3 /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 831532722D05026B0063F0E3 /* AWSS3 */; };
-		831532752D05026B0063F0E3 /* AWSSDKIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 831532742D05026B0063F0E3 /* AWSSDKIdentity */; };
-		831532762D0502E90063F0E3 /* S3FactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315322C2D04FF970063F0E3 /* S3FactoryImpl.swift */; };
-		831532772D0502FD0063F0E3 /* S3Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83314EBD2CFD26340057906F /* S3Factory.swift */; };
 		8315327D2D050A170063F0E3 /* FileBrowserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */; };
 		831532802D050E820063F0E3 /* FileBrowserNavigatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327F2D050E820063F0E3 /* FileBrowserNavigatorMock.swift */; };
 		831532822D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */; };
@@ -113,10 +102,7 @@
 		835B53C32D1F19BB00D1719E /* MainActorRunnerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53C22D1F19BB00D1719E /* MainActorRunnerImpl.swift */; };
 		835B53C92D1F242E00D1719E /* SyncPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53C82D1F242E00D1719E /* SyncPerformer.swift */; };
 		835B53CB2D1F244A00D1719E /* AsyncPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53CA2D1F244A00D1719E /* AsyncPerformer.swift */; };
-		835B53CF2D1F3AD200D1719E /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 835B53CE2D1F3AD200D1719E /* AsyncAlgorithms */; };
 		835B53D12D1F513000D1719E /* ApiEntryPageSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53D02D1F513000D1719E /* ApiEntryPageSequence.swift */; };
-		835B53D42D1F590F00D1719E /* SdkBucketRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53D32D1F590F00D1719E /* SdkBucketRepositoryImpl.swift */; };
-		835B53D62D1F59C300D1719E /* SdkBucketRepositoryFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53D52D1F59C300D1719E /* SdkBucketRepositoryFactoryImpl.swift */; };
 		835B53D92D1F5B1700D1719E /* ApiBucketRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53D82D1F5B1700D1719E /* ApiBucketRepositoryImpl.swift */; };
 		835B53DB2D1F5B3700D1719E /* ApiBucketRepositoryFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53DA2D1F5B3700D1719E /* ApiBucketRepositoryFactoryImpl.swift */; };
 		835B53E02D202CBE00D1719E /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53DF2D202CBE00D1719E /* Alert.swift */; };
@@ -165,7 +151,6 @@
 
 /* Begin PBXFileReference section */
 		831532272D04FDBB0063F0E3 /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
-		8315322C2D04FF970063F0E3 /* S3FactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3FactoryImpl.swift; sourceTree = "<group>"; };
 		8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserControllerTests.swift; sourceTree = "<group>"; };
 		8315327F2D050E820063F0E3 /* FileBrowserNavigatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigatorMock.swift; sourceTree = "<group>"; };
 		831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserCellVmFactoryMock.swift; sourceTree = "<group>"; };
@@ -192,13 +177,9 @@
 		832D40CC2CF7DDB2009FF6E7 /* BucketRegionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRegionLoader.swift; sourceTree = "<group>"; };
 		832D40CF2CF7E22D009FF6E7 /* HttpClientImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientImpl.swift; sourceTree = "<group>"; };
 		832D40D12CF7E663009FF6E7 /* BucketRepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRepositoryFactory.swift; sourceTree = "<group>"; };
-		832D40D52CF8285B009FF6E7 /* S3ClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ClientFactory.swift; sourceTree = "<group>"; };
 		832EB21A2D04E94800A10DD5 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		83314EB82CFD234F0057906F /* AnyAsyncSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyAsyncSequence.swift; sourceTree = "<group>"; };
-		83314EBA2CFD24500057906F /* S3Impl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Impl.swift; sourceTree = "<group>"; };
-		83314EBD2CFD26340057906F /* S3Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Factory.swift; sourceTree = "<group>"; };
 		83314EC02CFD36B10057906F /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
-		83314EC32CFD3D5D0057906F /* S3ListObjectsSequenceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ListObjectsSequenceImpl.swift; sourceTree = "<group>"; };
 		83314EC92CFD3E960057906F /* FileBrowserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserController.swift; sourceTree = "<group>"; };
 		83314ED02CFD55100057906F /* EntryCellVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCellVm.swift; sourceTree = "<group>"; };
 		83314ED42CFD592F0057906F /* EntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
@@ -237,8 +218,6 @@
 		835B53C82D1F242E00D1719E /* SyncPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncPerformer.swift; sourceTree = "<group>"; };
 		835B53CA2D1F244A00D1719E /* AsyncPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPerformer.swift; sourceTree = "<group>"; };
 		835B53D02D1F513000D1719E /* ApiEntryPageSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEntryPageSequence.swift; sourceTree = "<group>"; };
-		835B53D32D1F590F00D1719E /* SdkBucketRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SdkBucketRepositoryImpl.swift; sourceTree = "<group>"; };
-		835B53D52D1F59C300D1719E /* SdkBucketRepositoryFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SdkBucketRepositoryFactoryImpl.swift; sourceTree = "<group>"; };
 		835B53D82D1F5B1700D1719E /* ApiBucketRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBucketRepositoryImpl.swift; sourceTree = "<group>"; };
 		835B53DA2D1F5B3700D1719E /* ApiBucketRepositoryFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBucketRepositoryFactoryImpl.swift; sourceTree = "<group>"; };
 		835B53DF2D202CBE00D1719E /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -276,7 +255,6 @@
 		839516A12D04BA9600E92EA4 /* SettingsNavigatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigatorImpl.swift; sourceTree = "<group>"; };
 		839516A32D04BCFD00E92EA4 /* HudPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudPresenterImpl.swift; sourceTree = "<group>"; };
 		839516AB2D04D1FB00E92EA4 /* HttpClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientMock.swift; sourceTree = "<group>"; };
-		839606362CFD11B4007B921E /* S3ListObjectsSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ListObjectsSequence.swift; sourceTree = "<group>"; };
 		839F7B262CF32AEE005BABE1 /* FileBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839F7B292CF32AEE005BABE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		839F7B2B2CF32AEE005BABE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,9 +266,7 @@
 		83F9E3CC2CF3BE0A00C7A650 /* BucketRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRepository.swift; sourceTree = "<group>"; };
 		83F9E3CE2CF3C70100C7A650 /* ApiCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCredential.swift; sourceTree = "<group>"; };
 		83F9E3D02CF3C74C00C7A650 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
-		83F9E3D42CF3CA9500C7A650 /* S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3.swift; sourceTree = "<group>"; };
 		83F9E3D62CF3D46A00C7A650 /* ArraySequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraySequence.swift; sourceTree = "<group>"; };
-		83F9E3D82CF5249800C7A650 /* SdkEntryPageSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SdkEntryPageSequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,35 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				835B53992D1AE4F300D1719E /* XMLCoder in Frameworks */,
-				831532732D05026B0063F0E3 /* AWSS3 in Frameworks */,
-				831532752D05026B0063F0E3 /* AWSSDKIdentity in Frameworks */,
 				8315326F2D0502160063F0E3 /* ProgressHUD in Frameworks */,
 				8315326D2D0502050063F0E3 /* KeychainAccess in Frameworks */,
-				831532712D05026B0063F0E3 /* AWSConnect in Frameworks */,
-				835B53CF2D1F3AD200D1719E /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		831532352D05010B0063F0E3 /* factory */ = {
-			isa = PBXGroup;
-			children = (
-				83314EBD2CFD26340057906F /* S3Factory.swift */,
-				8315322C2D04FF970063F0E3 /* S3FactoryImpl.swift */,
-			);
-			path = factory;
-			sourceTree = "<group>";
-		};
-		831532362D0501190063F0E3 /* client factory */ = {
-			isa = PBXGroup;
-			children = (
-				832D40D52CF8285B009FF6E7 /* S3ClientFactory.swift */,
-			);
-			path = "client factory";
-			sourceTree = "<group>";
-		};
 		831532782D0509520063F0E3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,7 +444,6 @@
 				83314EBF2CFD36720057906F /* file system */,
 				832D40C02CF7C7BB009FF6E7 /* json */,
 				835B53AE2D1B2A3E00D1719E /* xml */,
-				83F9E3D32CF3CA8200C7A650 /* s3 */,
 			);
 			path = boundary;
 			sourceTree = "<group>";
@@ -562,19 +516,8 @@
 				83F9E3CC2CF3BE0A00C7A650 /* BucketRepository.swift */,
 				832D40D12CF7E663009FF6E7 /* BucketRepositoryFactory.swift */,
 				835B53D72D1F5A0400D1719E /* api */,
-				835B53D22D1F587300D1719E /* sdk */,
 			);
 			path = bucket;
-			sourceTree = "<group>";
-		};
-		832D40D72CF828FC009FF6E7 /* helpers */ = {
-			isa = PBXGroup;
-			children = (
-				831532362D0501190063F0E3 /* client factory */,
-				839606362CFD11B4007B921E /* S3ListObjectsSequence.swift */,
-				83314EC32CFD3D5D0057906F /* S3ListObjectsSequenceImpl.swift */,
-			);
-			path = helpers;
 			sourceTree = "<group>";
 		};
 		83314EBC2CFD25CE0057906F /* base */ = {
@@ -767,16 +710,6 @@
 				835B538C2D120C7200D1719E /* ActorAsyncPerformerImpl.swift */,
 			);
 			path = async;
-			sourceTree = "<group>";
-		};
-		835B53D22D1F587300D1719E /* sdk */ = {
-			isa = PBXGroup;
-			children = (
-				835B53D32D1F590F00D1719E /* SdkBucketRepositoryImpl.swift */,
-				835B53D52D1F59C300D1719E /* SdkBucketRepositoryFactoryImpl.swift */,
-				83F9E3D82CF5249800C7A650 /* SdkEntryPageSequence.swift */,
-			);
-			path = sdk;
 			sourceTree = "<group>";
 		};
 		835B53D72D1F5A0400D1719E /* api */ = {
@@ -1015,17 +948,6 @@
 			path = FileBrowser;
 			sourceTree = "<group>";
 		};
-		83F9E3D32CF3CA8200C7A650 /* s3 */ = {
-			isa = PBXGroup;
-			children = (
-				831532352D05010B0063F0E3 /* factory */,
-				83F9E3D42CF3CA9500C7A650 /* S3.swift */,
-				83314EBA2CFD24500057906F /* S3Impl.swift */,
-				832D40D72CF828FC009FF6E7 /* helpers */,
-			);
-			path = s3;
-			sourceTree = "<group>";
-		};
 		83F9E3DA2CF526A200C7A650 /* repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,11 +996,7 @@
 			packageProductDependencies = (
 				8315326C2D0502050063F0E3 /* KeychainAccess */,
 				8315326E2D0502160063F0E3 /* ProgressHUD */,
-				831532702D05026B0063F0E3 /* AWSConnect */,
-				831532722D05026B0063F0E3 /* AWSS3 */,
-				831532742D05026B0063F0E3 /* AWSSDKIdentity */,
 				835B53982D1AE4F300D1719E /* XMLCoder */,
-				835B53CE2D1F3AD200D1719E /* AsyncAlgorithms */,
 			);
 			productName = FileBrowser;
 			productReference = 839F7B262CF32AEE005BABE1 /* FileBrowser.app */;
@@ -1113,11 +1031,9 @@
 			);
 			mainGroup = 839F7B1D2CF32AEE005BABE1;
 			packageReferences = (
-				83F9E3BA2CF37B2F00C7A650 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
 				83D621962D04F6560047D82F /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				83D621992D04F6BB0047D82F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				835B53972D1AE4F300D1719E /* XCRemoteSwiftPackageReference "XMLCoder" */,
-				835B53CD2D1F3AD200D1719E /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 			);
 			productRefGroup = 839F7B272CF32AEE005BABE1 /* Products */;
 			projectDirPath = "";
@@ -1202,7 +1118,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				831532372D05017A0063F0E3 /* Button.swift in Sources */,
-				831532772D0502FD0063F0E3 /* S3Factory.swift in Sources */,
 				831532382D05017A0063F0E3 /* ButtonImpl.swift in Sources */,
 				831532392D05017A0063F0E3 /* FileBrowserNavigator.swift in Sources */,
 				8315323A2D05017A0063F0E3 /* HudPresenterImpl.swift in Sources */,
@@ -1211,9 +1126,7 @@
 				835B53F52D20AC8800D1719E /* CurrrentDateProvider.swift in Sources */,
 				835B53D92D1F5B1700D1719E /* ApiBucketRepositoryImpl.swift in Sources */,
 				835B53F72D20ACD400D1719E /* CurrentDateProviderImpl.swift in Sources */,
-				8315323C2D05017A0063F0E3 /* S3ListObjectsSequence.swift in Sources */,
 				8315323D2D05017A0063F0E3 /* FileSystem.swift in Sources */,
-				8315323E2D05017A0063F0E3 /* S3Impl.swift in Sources */,
 				8315323F2D05017A0063F0E3 /* SettingsNavigator.swift in Sources */,
 				831532402D05017A0063F0E3 /* NavigationNodeFactory.swift in Sources */,
 				835B53F22D2048A100D1719E /* FolderDaoImpl.swift in Sources */,
@@ -1222,7 +1135,6 @@
 				835B53ED2D203E9E00D1719E /* NavigationNodeImpl.swift in Sources */,
 				835B53B02D1B2A7A00D1719E /* XmlDecoder.swift in Sources */,
 				835B53D12D1F513000D1719E /* ApiEntryPageSequence.swift in Sources */,
-				831532412D05017A0063F0E3 /* S3ListObjectsSequenceImpl.swift in Sources */,
 				835B53BC2D1DD67600D1719E /* FileTransferPlacer.swift in Sources */,
 				831532422D05017A0063F0E3 /* JsonAdapter.swift in Sources */,
 				831532432D05017A0063F0E3 /* NotificationSubject.swift in Sources */,
@@ -1232,7 +1144,6 @@
 				831532472D05017A0063F0E3 /* SettingsVc.swift in Sources */,
 				834B3EAA2D0E07770081E7DA /* RequestSigner.swift in Sources */,
 				835B53E52D20377A00D1719E /* Node.swift in Sources */,
-				831532482D05017A0063F0E3 /* S3.swift in Sources */,
 				831532492D05017A0063F0E3 /* SettingsNavigatorImpl.swift in Sources */,
 				8315324A2D05017A0063F0E3 /* BucketRepository.swift in Sources */,
 				835B53A72D1B25D800D1719E /* FileDownloader.swift in Sources */,
@@ -1251,7 +1162,6 @@
 				831532522D05017A0063F0E3 /* DataSubscript.swift in Sources */,
 				831532532D05017A0063F0E3 /* Keychain.swift in Sources */,
 				831532542D05017A0063F0E3 /* Performer.swift in Sources */,
-				831532762D0502E90063F0E3 /* S3FactoryImpl.swift in Sources */,
 				835B53C92D1F242E00D1719E /* SyncPerformer.swift in Sources */,
 				831532552D05017A0063F0E3 /* Preferences.swift in Sources */,
 				831532562D05017A0063F0E3 /* HudPresenter.swift in Sources */,
@@ -1260,12 +1170,10 @@
 				831532592D05017A0063F0E3 /* TextField.swift in Sources */,
 				8315325A2D05017A0063F0E3 /* TextFieldImpl.swift in Sources */,
 				835B53CB2D1F244A00D1719E /* AsyncPerformer.swift in Sources */,
-				8315325B2D05017A0063F0E3 /* S3ClientFactory.swift in Sources */,
 				8315326B2D0501950063F0E3 /* FileBrowser.swift in Sources */,
 				835B53E02D202CBE00D1719E /* Alert.swift in Sources */,
 				835B53932D19E82600D1719E /* LoadingStateSyncer.swift in Sources */,
 				8315325C2D05017A0063F0E3 /* Bucket.swift in Sources */,
-				8315325D2D05017A0063F0E3 /* SdkEntryPageSequence.swift in Sources */,
 				835B53882D10A64900D1719E /* ContentResolver.swift in Sources */,
 				835B53E22D202D5200D1719E /* AlertImpl.swift in Sources */,
 				835B53F02D20488500D1719E /* FolderDao.swift in Sources */,
@@ -1289,7 +1197,6 @@
 				831532642D05017A0063F0E3 /* ApiCredential.swift in Sources */,
 				834B3EAD2D0EF3950081E7DA /* CoreDataStack.swift in Sources */,
 				835B539B2D1AF09400D1719E /* HttpClient.swift in Sources */,
-				835B53D42D1F590F00D1719E /* SdkBucketRepositoryImpl.swift in Sources */,
 				831532652D05017A0063F0E3 /* ButtonItem.swift in Sources */,
 				831532662D05017A0063F0E3 /* ApiConfig.swift in Sources */,
 				835B539D2D1AF0B900D1719E /* HttpTransferClient.swift in Sources */,
@@ -1301,7 +1208,6 @@
 				839F7B2A2CF32AEE005BABE1 /* AppDelegate.swift in Sources */,
 				835B538B2D1202B700D1719E /* TransferModel+Transfer.swift in Sources */,
 				839F7B2C2CF32AEE005BABE1 /* SceneDelegate.swift in Sources */,
-				835B53D62D1F59C300D1719E /* SdkBucketRepositoryFactoryImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1587,14 +1493,6 @@
 				minimumVersion = 0.17.1;
 			};
 		};
-		835B53CD2D1F3AD200D1719E /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
-			};
-		};
 		83D621962D04F6560047D82F /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
@@ -1611,14 +1509,6 @@
 				version = 4.2.2;
 			};
 		};
-		83F9E3BA2CF37B2F00C7A650 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/awslabs/aws-sdk-swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.47;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1632,30 +1522,10 @@
 			package = 83D621962D04F6560047D82F /* XCRemoteSwiftPackageReference "ProgressHUD" */;
 			productName = ProgressHUD;
 		};
-		831532702D05026B0063F0E3 /* AWSConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83F9E3BA2CF37B2F00C7A650 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
-			productName = AWSConnect;
-		};
-		831532722D05026B0063F0E3 /* AWSS3 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83F9E3BA2CF37B2F00C7A650 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
-			productName = AWSS3;
-		};
-		831532742D05026B0063F0E3 /* AWSSDKIdentity */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83F9E3BA2CF37B2F00C7A650 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
-			productName = AWSSDKIdentity;
-		};
 		835B53982D1AE4F300D1719E /* XMLCoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 835B53972D1AE4F300D1719E /* XCRemoteSwiftPackageReference "XMLCoder" */;
 			productName = XMLCoder;
-		};
-		835B53CE2D1F3AD200D1719E /* AsyncAlgorithms */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835B53CD2D1F3AD200D1719E /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
-			productName = AsyncAlgorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 
