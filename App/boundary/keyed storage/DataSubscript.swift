@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol DataSubscript {
     subscript(data key: String) -> Data? { get set }
     mutating func remove(_ key: String)

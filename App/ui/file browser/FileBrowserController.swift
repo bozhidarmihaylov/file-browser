@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol FileBrowserController {
     func cellCount() -> Int
     func cellVm(at indexPath: IndexPath) -> EntryCellVm

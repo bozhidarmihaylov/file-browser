@@ -14,22 +14,26 @@ final class ApiEntryPageSequence: AsyncSequence {
     init(
         path: String,
         pageSize: Int,
-        apiConfigProvider: ApiConfigProvider = ApiConfigStoreImpl.shared
+        apiConfigProvider: ApiConfigProvider = ApiConfigStoreImpl.shared,
+        folderContentLoader: FolderContentLoader = FolderContentLoaderImpl()
     ) {
         self.path = path
         self.pageSize = pageSize
         self.apiConfigProvider = apiConfigProvider
+        self.folderContentLoader = folderContentLoader
     }
 
     private let path: String
     private let pageSize: Int
     private let apiConfigProvider: ApiConfigProvider
+    private let folderContentLoader: FolderContentLoader
     
     func makeAsyncIterator() -> PageIterator {
         PageIterator(
             path: path,
             pageSize: pageSize,
-            apiConfigProvider: apiConfigProvider
+            apiConfigProvider: apiConfigProvider,
+            folderContentLoader: folderContentLoader
         )
     }
     
@@ -38,20 +42,17 @@ final class ApiEntryPageSequence: AsyncSequence {
             path: String,
             pageSize: Int,
             apiConfigProvider: ApiConfigProvider,
-            loadingStateSyncer: LoadingStateSyncer = LoadingStateSyncerImpl(),
-            folderContentLoader: FolderContentLoader = FolderContentLoaderImpl()
+            folderContentLoader: FolderContentLoader
         ) {
             self.path = path
             self.pageSize = pageSize
             self.apiConfigProvider = apiConfigProvider
-            self.loadingStateSyncer = loadingStateSyncer
             self.folderContentLoader = folderContentLoader
         }
         
         private let path: String
         private let pageSize: Int
         private let apiConfigProvider: ApiConfigProvider
-        private let loadingStateSyncer: LoadingStateSyncer
         private let folderContentLoader: FolderContentLoader
         private var nextContinuationToken: String? = nil
         private var hasMore: Bool = true

@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol FileSystem {
     var documentsDirectoryUrl: URL { get }
     var temporaryDirectoryUrl: URL { get }

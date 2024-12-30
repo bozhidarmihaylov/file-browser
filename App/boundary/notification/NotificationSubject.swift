@@ -52,4 +52,11 @@ extension NotificationSubject {
     ) {
         send(name: name, object: object, userInfo: nil)
     }
+    
+    func send(
+        name: String,
+        userInfo: [AnyHashable: Any]
+    ) {
+        send(name: name, object: nil, userInfo: userInfo)
+    }
 }

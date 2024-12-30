@@ -21,19 +21,17 @@ struct LoadingStateSyncerImpl: LoadingStateSyncer {
     private let loadingRegistry: LoadingRegistry
     
     func syncedLoadingStates(for entries: [Entry]) async throws -> [Entry] {
+        guard let first = entries.first else {
+            return []
+        }
+        
         let states = try await loadingRegistry.downloadingStates(
             for: entries.map(\.path),
-            in: entries.first?.bucketName ?? ""
+            in: first.bucketName
         )
         
         return entries.enumerated().map { index, entry in
-            Entry(
-                name: entry.name,
-                path: entry.path,
-                bucketName: entry.bucketName,
-                isFolder: entry.isFolder,
-                loadingState: states[index]
-            )
+            entry.copy(loadingState: states[index])
         }
     }
 }

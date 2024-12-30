@@ -51,6 +51,7 @@ extension HttpClientImpl: HttpTransferClient {
     public func clearHangDownloads() async {
         let tasks = await runningDownloads()
         
+        _ = FileDownloaderImpl.shared
         self.transferDelegate?.didRecreateBackgroundSession(with: tasks)
     }
     

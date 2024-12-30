@@ -145,7 +145,7 @@ extension SettingsControllerImpl {
             return
         }
         
-        let credential = ApiCredentialImpl(
+        let credential = ApiCredential(
             accessKey: accessKey,
             secretKey: secretKey
         )
@@ -158,9 +158,9 @@ extension SettingsControllerImpl {
             do {
                 let region = try await regionLoader.loadRegion(with: bucketName)
                 
-                let config = ApiConfigImpl(
+                let config = ApiConfig(
                     credential: credential,
-                    bucket: BucketImpl(
+                    bucket: Bucket(
                         name: bucketName,
                         region: region
                     )

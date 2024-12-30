@@ -1,6 +1,8 @@
 //
-//  AWSS3RequestHelper.swift
-//  AWSS3DownloadFileDemo
+//  RequestSignerImpl.swift
+//  FileBrowser
+//
+//  Adapted by Bozhidar Mihaylov from https://github.com/2ZGroupSolutionsArticles/Article_EZ001/blob/master/AWSS3DownloadFileDemo/AWSS3DownloadFileDemo/AWSS3RequestHelper.swift
 //
 //  Created by Eugene Zozulya
 //  Copyright © 2018 Sezorus. All rights reserved.
@@ -40,7 +42,6 @@ final class RequestSignerImpl {
     }()
     
     private lazy var urlCommonAllowedSet: CharacterSet = .init(charactersIn: "-._~").union(.alphanumerics)
-    private lazy var urlQueryAllowedSet: CharacterSet = .init(charactersIn: "&=").union(urlCommonAllowedSet)
     private lazy var urlPathAllowedSet: CharacterSet = .init(charactersIn: "/").union(urlCommonAllowedSet)
     
     private enum Copy {

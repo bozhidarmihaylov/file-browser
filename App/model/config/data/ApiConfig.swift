@@ -7,13 +7,7 @@
 
 import Foundation
 
-// sourcery: AutoMockable
-protocol ApiConfig {
-    var bucket: Bucket { get }
-    var credential: ApiCredential { get }
-}
-
-struct ApiConfigImpl: ApiConfig {
+struct ApiConfig: Equatable {
     let credential: ApiCredential
     let bucket: Bucket
 }

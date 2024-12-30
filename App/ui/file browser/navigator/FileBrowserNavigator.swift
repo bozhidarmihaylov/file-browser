@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol FileBrowserNavigator {
     func goToFile(_ file: Entry)
     func goToFolder(_ folder: Entry)

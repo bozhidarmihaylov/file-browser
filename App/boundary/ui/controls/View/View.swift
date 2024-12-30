@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol View: AnyObject {
     var tag: Int { get set }
     

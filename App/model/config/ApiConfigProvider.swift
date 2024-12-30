@@ -7,12 +7,10 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol ApiConfigProvider {
     var config: ApiConfig? { get }
 }
 
-// sourcery: AutoMockable
 protocol ApiConfigStore: ApiConfigProvider {
     var config: ApiConfig? { get set }
 }
@@ -31,13 +29,13 @@ struct ApiConfigStoreImpl: ApiConfigStore {
     
     var config: ApiConfig? {
         get {
-            guard let credential: ApiCredentialImpl = keychain[codable: Copy.credentialKey],
-                  let bucket: BucketImpl = preferences[codable: Copy.bucketKey]
+            guard let credential: ApiCredential = keychain[codable: Copy.credentialKey],
+                  let bucket: Bucket = preferences[codable: Copy.bucketKey]
             else {
                 return nil
             }
             
-            return ApiConfigImpl(
+            return ApiConfig(
                 credential: credential,
                 bucket: bucket
             )
@@ -48,11 +46,11 @@ struct ApiConfigStoreImpl: ApiConfigStore {
                 preferences.remove(Copy.bucketKey)
                 return
             }
-            keychain[codable: Copy.credentialKey] = ApiCredentialImpl(
+            keychain[codable: Copy.credentialKey] = ApiCredential(
                 accessKey: newValue.credential.accessKey,
                 secretKey: newValue.credential.secretKey
             )
-            preferences[codable: Copy.bucketKey] = BucketImpl(
+            preferences[codable: Copy.bucketKey] = Bucket(
                 name: newValue.bucket.name,
                 region: newValue.bucket.region
             )

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListBucketResult: Decodable {
+struct ListBucketResult: Decodable, Equatable {
     let name: String
     let prefix: String
     let continuationToken: String?
@@ -32,7 +32,7 @@ struct ListBucketResult: Decodable {
         case commonPrefixes = "CommonPrefixes"
     }
     
-    struct Contents: Decodable {
+    struct Contents: Decodable, Equatable {
         let key: String
         let lastModified: Date
         let etag: String
@@ -48,7 +48,7 @@ struct ListBucketResult: Decodable {
         }
     }
 
-    struct Prefix: Decodable {
+    struct Prefix: Decodable, Equatable {
         let prefix: String
         
         enum CodingKeys: String, CodingKey {

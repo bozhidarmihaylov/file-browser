@@ -7,36 +7,10 @@
 
 import Foundation
 
-//protocol FileBrowserController {
-//    func cellCount() -> Int
-//    func cellVm(at indexPath: IndexPath) -> EntryCellVm
-//    func cellAccessoryVm(at indexpath: IndexPath) -> AccessoryVm
-//    
-//    func onInit()
-//    func onDeinit()
-//    func onViewLoaded()
-//    func onViewAppeared()
-//    
-//    func onRightButtonItemTap()
-//    
-//    func onCellTap(at indexPath: IndexPath)
-//    func onCellAccessoryTap(at indexPath: IndexPath)
-//    
-//    func shouldHighlightRow(at indexPath: IndexPath) -> Bool
-//    
-//    func willDisplayCell(at indexPath: IndexPath)
-//}
-//init(
-//    navigator: SettingsNavigator,
-//    configStore: ApiConfigStore = ApiConfigStoreImpl.shared,
-//    regionLoader: BucketRegionLoader = BucketRegionLoaderImpl.shared,
-//    hudPresenter: HudPresenter = HudPresenterImpl()
-//) {
-
 import XCTest
 @testable import App
 
-final class SettingsControllerTests: TestCase {
+final class SettingsControllerTests: XCTestCase {
     
     
     

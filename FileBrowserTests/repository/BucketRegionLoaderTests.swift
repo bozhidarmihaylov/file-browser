@@ -8,11 +8,11 @@
 import XCTest
 @testable import App
 
-final class BucketRegionLoaderTests: TestCase {
+final class BucketRegionLoaderTests: XCTestCase {
     func testLoadRegion_networkException_rethrowsIt() async throws {
         let (sut, httpClientMock) = createSut()
         
-        httpClientMock.dataForRequestThrows(Copy.testError)
+        httpClientMock.dataForRequestError = Copy.testError
                 
         await assertThrowsAsyncError(
             try await sut.loadRegion(with: Copy.testBucketName)
@@ -24,7 +24,7 @@ final class BucketRegionLoaderTests: TestCase {
     func testLoadRegion_correctResult_returnsIt() async throws {
         let (sut, httpClientMock) = createSut()
         
-        httpClientMock.dataForRequestSuccess(result: Copy.successResult)
+        httpClientMock.dataForRequestResult = Copy.successResult
          
         let result = try await sut.loadRegion(with: Copy.testBucketName)
 
@@ -34,7 +34,7 @@ final class BucketRegionLoaderTests: TestCase {
     func testLoadRegion_invalidBucketName_invalidBucketNameError() async throws {
         let (sut, httpClientMock) = createSut()
         
-        httpClientMock.dataForRequestSuccess(result: Copy.successResult)
+        httpClientMock.dataForRequestResult = Copy.successResult
          
         await assertThrowsAsyncError(
             try await sut.loadRegion(with: Copy.invalidBucketName)
@@ -47,7 +47,7 @@ final class BucketRegionLoaderTests: TestCase {
     func testLoadRegion_missingHeader_notFoundError() async throws {
         let (sut, httpClientMock) = createSut()
         
-        httpClientMock.dataForRequestSuccess(result: Copy.notFoundResult)
+        httpClientMock.dataForRequestResult = Copy.notFoundResult
         
         await assertThrowsAsyncError(
             try await sut.loadRegion(with: Copy.testBucketName)

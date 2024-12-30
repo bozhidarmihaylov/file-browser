@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol BucketRegionLoader {
     func loadRegion(with bucketName: String) async throws -> String
 }

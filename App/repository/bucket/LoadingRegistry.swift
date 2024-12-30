@@ -7,13 +7,12 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol LoadingRegistry {
     func registerTransfer(_ transfer: Transfer) async throws
     func unregisterTransfer(_ transfer: Transfer) async throws
     func unregisterTransfer(taskId: Int) async throws
     
-    func dowloadingState(
+    func downloadingState(
         for relativeFilePath: String,
         in bucketName: String
     ) async throws -> LoadingState
@@ -44,7 +43,7 @@ final class LoadingRegistryImpl: LoadingRegistry {
     private let transferDao: TransferDao
     private let localUrlFinder: LocalUrlFinder
     
-    private var downloadsInProgress: Set<String> = Set()
+    private(set) var downloadsInProgress: Set<String> = Set()
     
     private var statesLoaded: Bool = false
     private func _loadStatesIfNeeded() async throws {
@@ -62,7 +61,7 @@ final class LoadingRegistryImpl: LoadingRegistry {
         )
     }
     
-    func dowloadingState(
+    func downloadingState(
         for relativeFilePath: String,
         in bucketName: String
     ) async throws -> LoadingState {

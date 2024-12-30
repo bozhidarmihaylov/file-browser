@@ -8,7 +8,13 @@
 import Foundation
 
 final class NotificationSubjectImpl: NotificationSubject {
-    private var notificationCenter: NotificationCenter { NotificationCenter.default }
+    init(
+        notificationCenter: NotificationCenter = NotificationCenter.default
+    ) {
+        self.notificationCenter = notificationCenter
+    }
+    
+    private let notificationCenter: NotificationCenter
     
     func subscribe(
         name: String,
@@ -29,6 +35,7 @@ final class NotificationSubjectImpl: NotificationSubject {
         NotificationSubscriptionImpl(
             name: name,
             object: object,
+            notificationCenter: notificationCenter,
             onEvent: onEvent
         )
     }
@@ -43,46 +50,5 @@ final class NotificationSubjectImpl: NotificationSubject {
             object: object,
             userInfo: userInfo
         )
-    }
-}
-
-final class NotificationSubscriptionImpl: Cancellable {
-    deinit {
-        cancel()
-    }
-    
-    init(
-        name: String,
-        object: AnyObject?,
-        onEvent: @escaping (Notification) -> Void
-    ) {
-        self.name = name
-        self.object = object
-        self.onEvent = onEvent
-        
-        start()
-    }
-
-    private let name: String
-    private let object: AnyObject?
-    private let onEvent: (Notification) -> Void
-    
-    private var notificationCenter: NotificationCenter { NotificationCenter.default }
-    
-    @objc private func onEvent(_ notification: Notification) {
-        onEvent(notification)
-    }
-    
-    private func start() {
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(onEvent(_ :)),
-            name: Notification.Name(name),
-            object: object
-        )
-    }
-    
-    func cancel() {
-        notificationCenter.removeObserver(self)
     }
 }

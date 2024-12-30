@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol FileBrowserCellVmFactory {
     func createVm(entry: Entry) -> EntryCellVm
     

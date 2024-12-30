@@ -7,7 +7,6 @@
 
 import UIKit
 
-// sourcery: AutoMockable
 protocol FileBrowserView: AnyObject {
     var visibleIndexPaths: [IndexPath] { get }
     

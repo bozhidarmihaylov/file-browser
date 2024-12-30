@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol BucketRepositoryFactory {
     func createBucketRepository() throws -> BucketRepository?
 }

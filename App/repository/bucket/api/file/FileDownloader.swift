@@ -18,29 +18,38 @@ final class FileDownloaderImpl {
     static let shared: FileDownloader = FileDownloaderImpl()
     
     init(
+        requestFactory: FileDownloadRequestFactory = FileDownloadRequestFactoryImpl(),
         httpTransferClient: HttpTransferClient = HttpClientImpl.shared,
         loadingRegistry: LoadingRegistry = LoadingRegistryImpl.shared,
         transferDao: TransferDao = TransferDaoImpl(),
         syncPerformer: SyncPerformer = RecursiveLockSyncPerformerImpl(),
         fileTransferPlacer: FileTransferPlacer = FileTransferPlacerImpl(),
-        fileSystem: FileSystem = FileSystemImpl()
+        fileSystem: FileSystem = FileSystemImpl(),
+        taskLauncher: TaskLauncher = TaskLauncherImpl(),
+        currentDateProvider: CurrentDateProvider = CurrentDateProviderImpl()
     ) {
+        self.requestFactory = requestFactory
         self.httpTransferClient = httpTransferClient
         self.loadingRegistry = loadingRegistry
         self.transferDao = transferDao
         self.syncPerformer = syncPerformer
         self.fileTransferPlacer = fileTransferPlacer
         self.fileSystem = fileSystem
+        self.taskLauncher = taskLauncher
+        self.currentDateProvider = currentDateProvider
         
         httpTransferClient.transferDelegate = self
     }
     
+    private let requestFactory: FileDownloadRequestFactory
     private let httpTransferClient: HttpTransferClient
     private let loadingRegistry: LoadingRegistry
     private let transferDao: TransferDao
     private let syncPerformer: SyncPerformer
     private let fileTransferPlacer: FileTransferPlacer
     private let fileSystem: FileSystem
+    private let taskLauncher: TaskLauncher
+    private let currentDateProvider: CurrentDateProvider
     
     private var continuationByTaskId: [Int: CheckedContinuation<URL, Error>] = [:]
 }
@@ -50,7 +59,7 @@ extension FileDownloaderImpl: FileDownloader {
         path: String,
         config: ApiConfig
     ) async throws -> Entry {
-        let request = FileDownloadRequestFactoryImpl().createDownloadRequest(
+        let request = requestFactory.createDownloadRequest(
             filePath: path,
             with: config
         )
@@ -67,20 +76,27 @@ extension FileDownloaderImpl: FileDownloader {
         
         try await loadingRegistry.registerTransfer(transfer)
         
-        task.resume()
-        
+        var unregisterError: Error? = nil
         do {
             let downloadUrl = try await withCheckedThrowingContinuation { continuation in
                 syncPerformer.sync {
                     continuationByTaskId[taskId] = continuation
                 }
+                task.resume()                
             }
             
             try fileTransferPlacer.placeTransfer(transfer, from: downloadUrl)
             
-            try await loadingRegistry.unregisterTransfer(transfer)
+            do {
+                try await loadingRegistry.unregisterTransfer(transfer)
+            } catch {
+                unregisterError = error
+                throw error
+            }
         } catch {
-            try await loadingRegistry.unregisterTransfer(transfer)
+            if unregisterError == nil {
+                try await loadingRegistry.unregisterTransfer(transfer)
+            }
             
             throw error
         }
@@ -107,7 +123,7 @@ extension FileDownloaderImpl: HttpTransferDelegate {
         }
         
         guard let continuation else {
-            Task.detached {
+            taskLauncher.launch {
                 try? await self.loadingRegistry.unregisterTransfer(taskId: taskId)
             }
             return
@@ -124,12 +140,28 @@ extension FileDownloaderImpl: HttpTransferDelegate {
             continuationByTaskId.removeValue(forKey: taskId)
         }
         
+        let date = currentDateProvider.currentDate
+        
         let newUrl = fileSystem.temporaryDirectoryUrl
-            .appendingPathComponent("download_task_#\(taskId)")
-        try? fileSystem.moveFile(at: url, to: newUrl)
+            .appendingPathComponent("download_task_#\(taskId)_\(date.timeIntervalSince1970)")
+        
+        do {
+            try fileSystem.moveFile(at: url, to: newUrl)
+        } catch {
+            if let continuation {
+                continuation.resume(throwing: error)
+            } else {
+                taskLauncher.launch {
+                    try? await self.loadingRegistry.unregisterTransfer(
+                        taskId: taskId
+                    )
+                }
+            }
+            return
+        }
         
         guard let continuation else {
-            Task.detached {
+            taskLauncher.launch {
                 if let transfer = try? await self.transferDao.get(taskId: taskId) {
                     try? self.fileTransferPlacer.placeTransfer(transfer, from: newUrl)
                 }
@@ -143,7 +175,7 @@ extension FileDownloaderImpl: HttpTransferDelegate {
     }
     
     func didRecreateBackgroundSession(with tasks: [HttpTask]) {
-        Task.detached {
+        taskLauncher.launch {
             let taskIds = tasks.map(\.identifier)
             _ = try? await self.transferDao.deleteTransfersWithTaskIdsNotIn(taskIds: taskIds)
         }

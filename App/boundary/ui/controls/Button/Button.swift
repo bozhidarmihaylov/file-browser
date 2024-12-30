@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol Button: View {
     var isEnabled: Bool { get set }
     

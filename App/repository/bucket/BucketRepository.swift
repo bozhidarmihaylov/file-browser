@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol BucketRepository {
     func getContent(
         path: String
@@ -22,4 +21,5 @@ enum BucketRepositoryError: Error {
     case noData
     case errorData
     case parentIsFile
+    case noConfig
 }

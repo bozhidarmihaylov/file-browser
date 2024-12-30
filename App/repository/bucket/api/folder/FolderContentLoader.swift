@@ -46,7 +46,7 @@ final class FolderContentLoaderImpl: FolderContentLoader {
         pageSize: Int,
         config: ApiConfig
     ) async throws -> FolderContentPage {
-        let request = FolderContentRequestFactoryImpl().createListRequest(
+        let request = requestFactory.createListRequest(
             folderPath: path,
             continuationToken: continuationToken,
             pageSize: pageSize,

@@ -8,7 +8,7 @@
 import XCTest
 @testable import App
 
-final class FileBrowserControllerTests: TestCase {
+final class FileBrowserControllerTests: XCTestCase {
     func testOnInit_called_subsribesToWillEnterForegroundNotification() throws {
         let (sut, _, _, _, _, noteSubjectMock, _, _) = createSut()
 

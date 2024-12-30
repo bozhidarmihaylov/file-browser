@@ -24,14 +24,30 @@ struct AnyAsyncSequence<E>: AsyncSequence {
     typealias AsyncIterator = AnyAsyncIterator<Element>
     
     typealias Element = E
+
+    init<S: AsyncSequence>(
+        sequence: inout S
+    ) where S.Element == E {
+        self.init(
+            sequence: &sequence,
+            id: UUID().uuidString
+        )
+    }
     
-    init<S: AsyncSequence>(sequence: inout S) where S.Element == E {
+    init<S: AsyncSequence>(
+        sequence: inout S,
+        id: some Hashable
+    ) where S.Element == E {
+        self.id = id
+        
         _makeIterator = { [sequence] in
             AnyAsyncIterator(
                 iterator: sequence.makeAsyncIterator()
             )
         }
     }
+    
+    let id: AnyHashable
     
     private let _makeIterator: () -> AnyAsyncIterator<E>
     

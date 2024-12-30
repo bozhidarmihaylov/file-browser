@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol SyncPerformer {
     func sync<T>(_ closure: () throws -> T) rethrows -> T
 }

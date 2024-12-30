@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol ButtonItem: AnyObject {
     var isHidden: Bool { get set }
 }

@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 import ProgressHUD
 
-// sourcery: AutoMockable
 protocol SettingsView: AnyObject {
     var rootView: View { get }
     

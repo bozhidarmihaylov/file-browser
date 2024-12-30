@@ -7,7 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
 protocol TextField: View {
     var text: String? { get set }
 //    var placeholder: String { get set }

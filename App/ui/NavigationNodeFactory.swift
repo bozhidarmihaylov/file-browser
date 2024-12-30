@@ -7,7 +7,6 @@
 
 import UIKit
 
-// sourcery: AutoMockable
 protocol NavigationNodeFactory {
     func createFileBrowserNode(name: String, path: String) -> UIViewController
     func createSettingsNode() -> UIViewController
