@@ -7,70 +7,59 @@
 
 import Foundation
 
-protocol FileBrowserController {
-    func cellCount() -> Int
-    func cellVm(at indexPath: IndexPath) -> EntryCellVm
-    func cellAccessoryVm(at indexpath: IndexPath) -> AccessoryVm
+protocol FileBrowserController
+    : FileBrowserViewOutput
+    , FolderContentPaginatorInput
+    , FolderContentPaginatorOutput
+{
     
-    func onInit()
-    func onDeinit()
-    func onViewLoaded()
-    func onViewAppeared()
-    
-    func onRightButtonItemTap()
-    
-    func onCellTap(at indexPath: IndexPath)
-    func onCellAccessoryTap(at indexPath: IndexPath)
-    
-    func shouldHighlightRow(at indexPath: IndexPath) -> Bool
-    
-    func willDisplayCell(at indexPath: IndexPath)
 }
 
 final class FileBrowserControllerImpl  {
     init(
         path: String = "",
+        folderContent: FolderContent,
         navigator: FileBrowserNavigator,
-        cellVmFactory: FileBrowserCellVmFactory = FileBrowserVmFactoryImpl(),
         repositoryFactory: BucketRepositoryFactory = ApiBucketRepositoryFactoryImpl(),
+        contentPaginator: FolderContentPaginator = FolderContentPaginatorImpl(),
         notificationSubject: NotificationSubject = NotificationSubjectImpl(),
-        loadingStateSyncer: LoadingStateSyncer = LoadingStateSyncerImpl(),
-        mainActorRunner: MainActorRunner = MainActorRunnerImpl()
+        mainActorRunner: MainActorRunner = MainActorRunnerImpl(),
+        taskLauncher: TaskLauncher = TaskLauncherImpl(),
+        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl()
     ) {
         self.path = path
+        self.folderContent = folderContent
         self.navigator = navigator
-        self.cellVmFactory = cellVmFactory
         self.repositoryFactory = repositoryFactory
         self.notificationSubject = notificationSubject
-        self.loadingStateSyncer = loadingStateSyncer
         self.mainActorRunner = mainActorRunner
+        self.taskLauncher = taskLauncher
+        self.contentPaginator = contentPaginator
+        self.alertBuilderFactory = alertBuilderFactory
+        
+        self.contentPaginator.input = self
+        self.contentPaginator.output = self
     }
     
     weak var view: FileBrowserView? = nil
     
     private let path: String
+    private let folderContent: FolderContent
     private let navigator: FileBrowserNavigator
     
-    private let cellVmFactory: FileBrowserCellVmFactory
     private let repositoryFactory: BucketRepositoryFactory
+    private let contentPaginator: FolderContentPaginator
     private let notificationSubject: NotificationSubject
-    private let loadingStateSyncer: LoadingStateSyncer
     private let mainActorRunner: MainActorRunner
+    private let taskLauncher: TaskLauncher
+    private let alertBuilderFactory: AlertBuilderFactory
     
     private lazy var repository: BucketRepository = try! repositoryFactory.createBucketRepository()!
-    private var pageIterator: AnyAsyncSequence<[Entry]>.AsyncIterator? = nil
+    private(set) var pageIterator: AnyAsyncSequence<[Entry]>.AsyncIterator? = nil
 
-    private var entries: [Entry] = []
-    
-    private var loadNextPageTask: Task<Void, Never>? = nil
+    private var loadNextPageTask: Task<Void, Error>? = nil
     private var hasLoadedAllPages = false
         
-    private var cellVms: [EntryCellVm] = []
-    
-    private func entry(at indexPath: IndexPath) -> Entry {
-        entries[indexPath.row]
-    }
-    
     private var willEnterForegroundSubscription: Cancellable? = nil
     private func subscribe() {
         willEnterForegroundSubscription?.cancel()
@@ -88,47 +77,21 @@ final class FileBrowserControllerImpl  {
     }
     
     private func syncEntriesLocally() {
-        let entiresCopy = entries
-        Task { [weak self] in
+        taskLauncher.launch { [weak self] in
             guard let self else { return }
             
-            let newEntries = try await loadingStateSyncer.syncedLoadingStates(
-              for: entiresCopy
-            )
+            try await folderContent.syncLoadingStates()
             
             await mainActorRunner.run { [weak self] in
-                guard let self else { return }
+                guard let self, let view else { return }
                 
-                entries = newEntries
-                
-                cellVms = cellVmFactory.createVm(entries: entries)
-                
-                for indexPath in view?.visibleIndexPaths ?? [] {
-                    guard indexPath.row < cellVms.count else { return }
-                    
-                    view?.configureCellAccessoryView(
-                        at: indexPath,
-                        with: cellVms[indexPath.row].accessoryVm
-                    )
-                }
+                view.updateAccessoryViewForRows(at: view.visibleIndexPaths)
             }
         }
     }
 }
 
-extension FileBrowserControllerImpl: FileBrowserController {
-    func cellCount() -> Int {
-        cellVms.count
-    }
-    
-    func cellVm(at indexPath: IndexPath) -> EntryCellVm {
-        cellVms[indexPath.row]
-    }
-    
-    func cellAccessoryVm(at indexPath: IndexPath) -> AccessoryVm {
-        cellVms[indexPath.row].accessoryVm
-    }
-    
+extension FileBrowserControllerImpl: FileBrowserViewOutput {
     func onInit() {
         subscribe()
     }
@@ -141,9 +104,7 @@ extension FileBrowserControllerImpl: FileBrowserController {
         let result = repository.getContent(path: path)
         pageIterator = result.makeAsyncIterator()
         
-        entries = []
-        
-        loadMore()
+        contentPaginator.loadMore()
     }
     
     func onViewAppeared() {
@@ -155,7 +116,7 @@ extension FileBrowserControllerImpl: FileBrowserController {
     }
     
     func onCellTap(at indexPath: IndexPath) {
-        let entry = entries[indexPath.row]
+        let entry = folderContent.entry(at: indexPath.row)
 
         if entry.isFolder {
             navigator.goToFolder(entry)
@@ -169,107 +130,82 @@ extension FileBrowserControllerImpl: FileBrowserController {
     func onCellAccessoryTap(at indexPath: IndexPath) {
         let index = indexPath.row
         
-        guard entries.indices.contains(index) else { return }
+        let path = folderContent.entry(at: index).path
         
-        var entry = entries[index]
-        entry.loadingState = .loading
-        entries[index] = entry
+        folderContent.setLoadingState(.loading, at: path)
+        view?.updateAccessoryViewForRows(at: [indexPath])
         
-        let cellVm = cellVmFactory.createVm(entry: entry)
-        cellVms[index] = cellVm
-        
-        view?.configureCellAccessoryView(
-            at: indexPath,
-            with: cellVm.accessoryVm
-        )
-        
-        Task { [weak self, entry] in
+        taskLauncher.launch { [weak self] in
             guard let self else { return }
             
-            let updatedEntry: Entry
-            
-            if let fetchedEntry = try? await repository.downloadFile(
-                   path: entry.path
-               )
-            {
-                updatedEntry = fetchedEntry
-            } else {
-                updatedEntry = {
-                    var it = entry
-                    it.loadingState = .notLoaded
-                    return it
-                }()
-            }
+            let loadingState = (
+                try? await repository.downloadFile(
+                    path: path
+                ).loadingState
+            ) ?? .notLoaded
             
             await mainActorRunner.run { [weak self] in
                 guard let self else { return }
 
-                entries[index] = updatedEntry
-                
-                let cellVm = cellVmFactory.createVm(entry: updatedEntry)
-                cellVms[index] = cellVm
-                
-                view?.configureCellAccessoryView(
-                    at: indexPath,
-                    with: cellVm.accessoryVm
-                )
+                folderContent.setLoadingState(loadingState, at: path)
+                view?.updateAccessoryViewForRows(at: [indexPath])
             }
         }
     }
     
     func shouldHighlightRow(at indexPath: IndexPath) -> Bool {
-        let entry = entry(at: indexPath)
+        let entry = folderContent.entry(at: indexPath.row)
         
         return entry.isFolder || entry.loadingState == .loaded
     }
     
     func willDisplayCell(at indexPath: IndexPath) {
-        if (indexPath.row == cellVms.count - 1) {
-            loadMore()
+        if (indexPath.row == folderContent.numberOfEntries() - 1) {
+            contentPaginator.loadMore()
         }
     }
 }
 
-extension FileBrowserControllerImpl {
-    private func loadMore() {
-        if (hasLoadedAllPages || loadNextPageTask != nil) { return }
-        
-        loadNextPageTask = Task { [weak self] in
-            guard let self else {
+extension FileBrowserControllerImpl: FolderContentPaginatorInput {
+    func loadNextPage() async throws -> [Entry]? {
+        try await pageIterator?.next()
+    }
+}
+
+extension FileBrowserControllerImpl: FolderContentPaginatorOutput {
+    func didStartLoadingNewPage() {}
+    
+    func didFinishLoadingNewPage(
+        with result: Result<[Entry], Error>
+    ) {
+        switch result {
+        case .success(let newPage):
+            let firstIndex = folderContent.numberOfEntries()
+            folderContent.append(entries: newPage)
+            
+            guard firstIndex > 0 else {
+                view?.reloadData()
+                return
+            }
+
+            view?.insertRows(
+                at: IndexPath(row: firstIndex, section: 0),
+                count: newPage.count
+            )
+            
+        case .failure(let error):
+            guard let view else {
                 return
             }
             
-            var page: [Entry]? = nil
+            let msg = "Loading folder content failed"
             
-            do { page = try await pageIterator?.next() }
-            catch { print(error) }
+            alertBuilderFactory.createAlertBuilder()
+                .setMessage(msg)
+                .build()
+                .show(on: view.node, animated: true)
             
-            await mainActorRunner.run { [weak self, page] in
-                guard let self else { return }
-                
-                loadNextPageTask = nil
-                
-                guard let page,
-                      page.count > 0
-                else {
-                    hasLoadedAllPages = true
-                    return
-                }
-                
-                let firstIndex = entries.count
-                entries.append(contentsOf: page)
-                cellVms.append(contentsOf: cellVmFactory.createVm(entries: page))
-                
-                guard firstIndex > 0 else {
-                    view?.reloadData()
-                    return
-                }
-
-                view?.insertRows(
-                    at: IndexPath(row: firstIndex, section: 0),
-                    count: page.count
-                )
-            }
+            NSLog("\(msg): \(error)")
         }
     }
 }

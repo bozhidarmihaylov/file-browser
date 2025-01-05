@@ -7,22 +7,22 @@
 
 import UIKit
 
-struct AlertBuilderImpl: AlertBuilder {
+final class AlertBuilderImpl: AlertBuilder {
     private var title: String? = nil
-    mutating func setTitle(_ title: String?) -> AlertBuilder {
+    func setTitle(_ title: String?) -> AlertBuilder {
         self.title = title
         return self
     }
     
     private var message: String? = nil
-    mutating func setMessage(_ message: String?) -> AlertBuilder {
+    func setMessage(_ message: String?) -> AlertBuilder {
         self.message = message
         return self
     }
     
     private var cancelButtonTitle: String? = nil
     private var cancelButtonAction: AlertAction? = nil
-    mutating func setCancelButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder {
+    func setCancelButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder {
         cancelButtonTitle = title
         cancelButtonAction = action
         return self
@@ -30,7 +30,7 @@ struct AlertBuilderImpl: AlertBuilder {
     
     private var okButtonTitle: String? = nil
     private var okButtonAction: AlertAction? = nil
-    mutating func setOKButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder {
+    func setOkButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder {
         okButtonTitle = title
         okButtonAction = action
         return self

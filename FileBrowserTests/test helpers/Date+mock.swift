@@ -2,7 +2,7 @@
 //  Date+mock.swift
 //  FileBrowserTests
 //
-//  Created by Bozhidar Mihaylov on 6.01.25.
+//  Created by Bozhidar Mihaylov
 //
 
 import Foundation

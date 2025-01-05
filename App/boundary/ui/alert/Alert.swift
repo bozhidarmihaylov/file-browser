@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol AlertBuilder {
-    mutating func setTitle(_ title: String?) -> AlertBuilder
-    mutating func setMessage(_ messsage: String?) -> AlertBuilder
-    mutating func setCancelButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder
-    mutating func setOKButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder
+protocol AlertBuilder: AnyObject {
+    func setTitle(_ title: String?) -> AlertBuilder
+    func setMessage(_ messsage: String?) -> AlertBuilder
+    func setCancelButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder
+    func setOkButtonTitle(_ title: String?, action: AlertAction?) -> AlertBuilder
     
     func build() -> Alert
 }

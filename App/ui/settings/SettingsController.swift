@@ -7,19 +7,11 @@
 
 import Foundation
 
-protocol SettingsController {
-    func textFieldShouldReturn(at field: TextField) -> Bool
+protocol SettingsController: SettingsViewOutput {
     
-    func onViewLoaded()
-    
-    func onEditingChanged(at field: TextField)
-    
-    func onSave()
-    func onBack()
-    func onLogout()
 }
 
-final class SettingsControllerImpl {
+final class SettingsControllerImpl: SettingsController {
     private enum SettingsField: Int {
         case accessKey = 0
         case secretKey = 1
@@ -32,35 +24,33 @@ final class SettingsControllerImpl {
     init(
         navigator: SettingsNavigator,
         configStore: ApiConfigStore = ApiConfigStoreImpl.shared,
-        regionLoader: BucketRegionLoader = BucketRegionLoaderImpl.shared,
         hudPresenter: HudPresenter = HudPresenterImpl(),
-        mainActorRunner: MainActorRunner = MainActorRunnerImpl()
+        saver: SettingsSaver = SettingsSaverImpl(),
+        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl()
     ) {
         self.navigator = navigator
         self.configStore = configStore
-        self.regionLoader = regionLoader
         self.hudPresenter = hudPresenter
-        self.mainActorRunner = mainActorRunner
+        self.saver = saver
+        self.alertBuilderFactory = alertBuilderFactory
+        
+        self.saver.input = self
+        self.saver.output = self
     }
     
     weak var view: SettingsView? = nil
     
     private let navigator: SettingsNavigator
     private var configStore: ApiConfigStore
-    
-    private let regionLoader: BucketRegionLoader
-    
+
     private let hudPresenter: HudPresenter
-    private let mainActorRunner: MainActorRunner
+    private let saver: SettingsSaver
+    private let alertBuilderFactory: AlertBuilderFactory
     
     private var loaderTask: Task<Void, Never>? = nil
 
-    private var accessKey: String { view?.accessKeyTextField.text ?? "" }
-    private var secretKey: String { view?.secretKeyTextField.text ?? "" }
-    private var bucketName: String { view?.bucketNameTextField.text ?? "" }
-
     private var allFieldTexts: [String] {
-        [accessKey, secretKey, bucketName]
+        [accessKey(), secretKey(), bucketName()]
     }
     
     private var noFieldIsEmpty: Bool {
@@ -86,7 +76,48 @@ final class SettingsControllerImpl {
     }
 }
 
-extension SettingsControllerImpl: SettingsController {
+extension SettingsControllerImpl: SettingsSaverInput {
+    func canSave() -> Bool {
+        noFieldIsEmpty
+    }
+    
+    func accessKey() -> String {
+        view?.accessKeyTextField.text ?? ""
+    }
+    
+    func secretKey() -> String {
+        view?.secretKeyTextField.text ?? ""
+    }
+    
+    func bucketName() -> String {
+        view?.bucketNameTextField.text ?? ""
+    }
+}
+
+extension SettingsControllerImpl: SettingsSaverOutput {
+    func saveDidStart() {
+        setSpinnerOn(true)
+    }
+    
+    func saveDidFinish(with result: Result<Void, any Error>) {
+        setSpinnerOn(false)
+        
+        switch result {
+        case .success():
+            navigator.goForward()
+            
+        case .failure(_):
+            guard let node = view?.node else { return }
+            
+            alertBuilderFactory.createAlertBuilder()
+                .setMessage("Bucket not found")
+                .build()
+                .show(on: node, animated: true)
+        }
+    }
+}
+
+extension SettingsControllerImpl: SettingsViewOutput {
     func onViewLoaded() {
         view?.accessKeyTextField.tag = 0
         view?.secretKeyTextField.tag = 1
@@ -102,15 +133,19 @@ extension SettingsControllerImpl: SettingsController {
         updateSaveButtonEnabled()
     }
     
+    func onEditingChanged(at field: TextField) {
+        updateSaveButtonEnabled()
+    }
+    
     func onSave() {
-        save()
+        saver.save()
     }
     
     func textFieldShouldReturn(at field: TextField) -> Bool {
         let index = field.tag
         
         guard index != SettingsField.count - 1 else  {
-            save()
+            saver.save()
             return true
         }
         
@@ -136,59 +171,6 @@ extension SettingsControllerImpl: SettingsController {
 }
 
 extension SettingsControllerImpl {
-    private func save() {
-        guard noFieldIsEmpty else {
-            return
-        }
-        
-        guard loaderTask == nil else {
-            return
-        }
-        
-        let credential = ApiCredential(
-            accessKey: accessKey,
-            secretKey: secretKey
-        )
-        
-        let bucketName = bucketName
-        
-        setSpinnerOn(true)
-        
-        loaderTask = Task {
-            do {
-                let region = try await regionLoader.loadRegion(with: bucketName)
-                
-                let config = ApiConfig(
-                    credential: credential,
-                    bucket: Bucket(
-                        name: bucketName,
-                        region: region
-                    )
-                )
-                                
-                configStore.config = config
-                
-                await mainActorRunner.run { [weak self] in
-                    guard let self else { return }
-                    
-                    setSpinnerOn(false)
-                    
-                    defer { loaderTask = nil }
-
-                    navigator.goForward()
-                }
-            } catch {
-                await mainActorRunner.run {
-                    setSpinnerOn(false)
-                }
-                loaderTask = nil
-                print(error)
-            }
-        }
-    }
-}
-
-extension SettingsControllerImpl {
     private func updateFieldsValues() {
         let config = configStore.config
         
@@ -204,9 +186,5 @@ extension SettingsControllerImpl {
     
     private func updateSaveButtonEnabled() {
         view?.saveButton.isEnabled = noFieldIsEmpty
-    }
-    
-    func onEditingChanged(at field: TextField) {
-        updateSaveButtonEnabled()
     }
 }

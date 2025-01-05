@@ -7,12 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8300324C2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300324B2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift */; };
+		8300324E2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300324D2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift */; };
+		830032512D2B98560009CA1A /* FolderContentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032502D2B98560009CA1A /* FolderContentMock.swift */; };
+		830032532D2B9AC10009CA1A /* FolderContentImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032522D2B9AC10009CA1A /* FolderContentImplTests.swift */; };
+		830032572D2B9C210009CA1A /* FileBrowserViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032562D2B9C210009CA1A /* FileBrowserViewMock.swift */; };
+		830032592D2BB1040009CA1A /* FolderContentOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032582D2BB1040009CA1A /* FolderContentOutputMock.swift */; };
+		8300325C2D2BD0A10009CA1A /* FolderContentPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300325B2D2BD0A10009CA1A /* FolderContentPaginator.swift */; };
+		830032622D2BE4960009CA1A /* AlertBuilderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032612D2BE4960009CA1A /* AlertBuilderFactory.swift */; };
+		830032672D2BE7900009CA1A /* NodeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032662D2BE7900009CA1A /* NodeMock.swift */; };
+		830032692D2BE7B20009CA1A /* NavigationNodeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032682D2BE7B20009CA1A /* NavigationNodeMock.swift */; };
+		8300326B2D2BE8BB0009CA1A /* AlertMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300326A2D2BE8BB0009CA1A /* AlertMock.swift */; };
+		8300326D2D2BE9370009CA1A /* AlertBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300326C2D2BE9370009CA1A /* AlertBuilderMock.swift */; };
+		8300326F2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300326E2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift */; };
+		830032722D2BED8F0009CA1A /* FolderContentPaginatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032712D2BED8F0009CA1A /* FolderContentPaginatorMock.swift */; };
+		830032732D2BEE130009CA1A /* FileBrowserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */; };
+		830032752D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032742D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift */; };
+		830032772D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032762D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift */; };
+		830032792D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032782D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift */; };
+		8300327B2D2C19000009CA1A /* BucketRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300327A2D2C19000009CA1A /* BucketRepositoryMock.swift */; };
+		830032812D2C33F10009CA1A /* AsyncSequenceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032802D2C33F10009CA1A /* AsyncSequenceMock.swift */; };
+		830032832D2C35470009CA1A /* AsyncSequenceIteratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032822D2C35470009CA1A /* AsyncSequenceIteratorMock.swift */; };
+		830032872D2C46ED0009CA1A /* TextFieldMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032862D2C46ED0009CA1A /* TextFieldMock.swift */; };
+		830032892D2C474A0009CA1A /* ViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032882D2C474A0009CA1A /* ViewMock.swift */; };
+		8300328B2D2C48540009CA1A /* ButtonMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300328A2D2C48540009CA1A /* ButtonMock.swift */; };
+		8300328D2D2C48CC0009CA1A /* ButtonItemMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300328C2D2C48CC0009CA1A /* ButtonItemMock.swift */; };
+		8300328F2D2C4D280009CA1A /* SettingsViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300328E2D2C4D280009CA1A /* SettingsViewMock.swift */; };
+		830032912D2C508B0009CA1A /* SettingsSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032902D2C508B0009CA1A /* SettingsSaver.swift */; };
+		830032932D2C572C0009CA1A /* SettingsSaverMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032922D2C572C0009CA1A /* SettingsSaverMock.swift */; };
+		830032952D2C58730009CA1A /* SettingsSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032942D2C58730009CA1A /* SettingsSaverTests.swift */; };
+		830032992D2C6B8F0009CA1A /* SettingsSaverInputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032982D2C6B8F0009CA1A /* SettingsSaverInputMock.swift */; };
+		8300329B2D2C6C6C0009CA1A /* SettingsSaverOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300329A2D2C6C6C0009CA1A /* SettingsSaverOutputMock.swift */; };
 		830ADC322D29CB830053C920 /* LoadingRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC312D29CB830053C920 /* LoadingRegistry.swift */; };
 		830ADC342D29F9470053C920 /* ApiBucketRepositoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC332D29F9470053C920 /* ApiBucketRepositoryImplTests.swift */; };
 		830ADC362D29FA580053C920 /* FileDownloaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC352D29FA580053C920 /* FileDownloaderMock.swift */; };
 		830ADC382D2A0CCC0053C920 /* ApiBucketRepositoryFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC372D2A0CCC0053C920 /* ApiBucketRepositoryFactoryImplTests.swift */; };
 		8315327D2D050A170063F0E3 /* FileBrowserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */; };
 		830ADC3E2D2ABE760053C920 /* TaskLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC3D2D2ABE760053C920 /* TaskLauncherImpl.swift */; };
+		830ADC3C2D2AB7680053C920 /* FolderContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ADC3B2D2AB7680053C920 /* FolderContent.swift */; };
 		831532802D050E820063F0E3 /* FileBrowserNavigatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327F2D050E820063F0E3 /* FileBrowserNavigatorMock.swift */; };
 		831532822D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */; };
 		831532842D050ECD0063F0E3 /* FileSystemMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831532832D050ECD0063F0E3 /* FileSystemMock.swift */; };
@@ -134,7 +166,6 @@
 		839B50D82D22CF5F003F714C /* XmlDecoderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53B12D1B2AC700D1719E /* XmlDecoderImpl.swift */; };
 		839B50D92D22CF5F003F714C /* ApiCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F9E3CE2CF3C70100C7A650 /* ApiCredential.swift */; };
 		839B50DA2D22CF5F003F714C /* LoadingStateSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53922D19E82600D1719E /* LoadingStateSyncer.swift */; };
-		839B50DB2D22CF5F003F714C /* ContentResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53872D10A64900D1719E /* ContentResolver.swift */; };
 		839B50DC2D22CF5F003F714C /* NodeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53EA2D203E9000D1719E /* NodeImpl.swift */; };
 		839B50DD2D22CF5F003F714C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53DF2D202CBE00D1719E /* Alert.swift */; };
 		839B50DE2D22CF5F003F714C /* NavigationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B53E62D2037B400D1719E /* NavigationNode.swift */; };
@@ -202,11 +233,42 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8300324B2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserCellVmFactoryImplTests.swift; sourceTree = "<group>"; };
+		8300324D2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserPresenterImplTests.swift; sourceTree = "<group>"; };
+		830032502D2B98560009CA1A /* FolderContentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentMock.swift; sourceTree = "<group>"; };
+		830032522D2B9AC10009CA1A /* FolderContentImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentImplTests.swift; sourceTree = "<group>"; };
+		830032562D2B9C210009CA1A /* FileBrowserViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserViewMock.swift; sourceTree = "<group>"; };
+		830032582D2BB1040009CA1A /* FolderContentOutputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentOutputMock.swift; sourceTree = "<group>"; };
+		8300325B2D2BD0A10009CA1A /* FolderContentPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentPaginator.swift; sourceTree = "<group>"; };
+		830032612D2BE4960009CA1A /* AlertBuilderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilderFactory.swift; sourceTree = "<group>"; };
+		830032662D2BE7900009CA1A /* NodeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeMock.swift; sourceTree = "<group>"; };
+		830032682D2BE7B20009CA1A /* NavigationNodeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationNodeMock.swift; sourceTree = "<group>"; };
+		8300326A2D2BE8BB0009CA1A /* AlertMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMock.swift; sourceTree = "<group>"; };
+		8300326C2D2BE9370009CA1A /* AlertBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilderMock.swift; sourceTree = "<group>"; };
+		8300326E2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilderFactoryMock.swift; sourceTree = "<group>"; };
+		830032712D2BED8F0009CA1A /* FolderContentPaginatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentPaginatorMock.swift; sourceTree = "<group>"; };
+		830032742D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentPaginatorImplTests.swift; sourceTree = "<group>"; };
+		830032762D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentPaginatorOutputMock.swift; sourceTree = "<group>"; };
+		830032782D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentPaginatorInputMock.swift; sourceTree = "<group>"; };
+		8300327A2D2C19000009CA1A /* BucketRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRepositoryMock.swift; sourceTree = "<group>"; };
+		830032802D2C33F10009CA1A /* AsyncSequenceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncSequenceMock.swift; sourceTree = "<group>"; };
+		830032822D2C35470009CA1A /* AsyncSequenceIteratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncSequenceIteratorMock.swift; sourceTree = "<group>"; };
+		830032862D2C46ED0009CA1A /* TextFieldMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMock.swift; sourceTree = "<group>"; };
+		830032882D2C474A0009CA1A /* ViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMock.swift; sourceTree = "<group>"; };
+		8300328A2D2C48540009CA1A /* ButtonMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonMock.swift; sourceTree = "<group>"; };
+		8300328C2D2C48CC0009CA1A /* ButtonItemMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonItemMock.swift; sourceTree = "<group>"; };
+		8300328E2D2C4D280009CA1A /* SettingsViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMock.swift; sourceTree = "<group>"; };
+		830032902D2C508B0009CA1A /* SettingsSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSaver.swift; sourceTree = "<group>"; };
+		830032922D2C572C0009CA1A /* SettingsSaverMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSaverMock.swift; sourceTree = "<group>"; };
+		830032942D2C58730009CA1A /* SettingsSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSaverTests.swift; sourceTree = "<group>"; };
+		830032982D2C6B8F0009CA1A /* SettingsSaverInputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSaverInputMock.swift; sourceTree = "<group>"; };
+		8300329A2D2C6C6C0009CA1A /* SettingsSaverOutputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSaverOutputMock.swift; sourceTree = "<group>"; };
 		830ADC312D29CB830053C920 /* LoadingRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingRegistry.swift; sourceTree = "<group>"; };
 		830ADC332D29F9470053C920 /* ApiBucketRepositoryImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBucketRepositoryImplTests.swift; sourceTree = "<group>"; };
 		830ADC352D29FA580053C920 /* FileDownloaderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloaderMock.swift; sourceTree = "<group>"; };
 		830ADC372D2A0CCC0053C920 /* ApiBucketRepositoryFactoryImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBucketRepositoryFactoryImplTests.swift; sourceTree = "<group>"; };
 		830ADC3D2D2ABE760053C920 /* TaskLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLauncherImpl.swift; sourceTree = "<group>"; };
+		830ADC3B2D2AB7680053C920 /* FolderContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContent.swift; sourceTree = "<group>"; };
 		831532272D04FDBB0063F0E3 /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserControllerTests.swift; sourceTree = "<group>"; };
 		8315327F2D050E820063F0E3 /* FileBrowserNavigatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigatorMock.swift; sourceTree = "<group>"; };
@@ -248,7 +310,6 @@
 		83530D4D2CFCAE5A00376B3D /* BucketRegionLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRegionLoaderTests.swift; sourceTree = "<group>"; };
 		835B537F2D0FD22000D1719E /* TrasnferDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrasnferDao.swift; sourceTree = "<group>"; };
 		835B53852D105E2400D1719E /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
-		835B53872D10A64900D1719E /* ContentResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentResolver.swift; sourceTree = "<group>"; };
 		835B538A2D1202B700D1719E /* TransferModel+Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransferModel+Transfer.swift"; sourceTree = "<group>"; };
 		835B538C2D120C7200D1719E /* ActorAsyncPerformerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorAsyncPerformerImpl.swift; sourceTree = "<group>"; };
 		835B53922D19E82600D1719E /* LoadingStateSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateSyncer.swift; sourceTree = "<group>"; };
@@ -392,6 +453,92 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8300324F2D2B983D0009CA1A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				830032502D2B98560009CA1A /* FolderContentMock.swift */,
+				830032582D2BB1040009CA1A /* FolderContentOutputMock.swift */,
+				830032522D2B9AC10009CA1A /* FolderContentImplTests.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8300325A2D2BD05B0009CA1A /* controller helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8300325B2D2BD0A10009CA1A /* FolderContentPaginator.swift */,
+			);
+			path = "controller helpers";
+			sourceTree = "<group>";
+		};
+		830032632D2BE76E0009CA1A /* nav */ = {
+			isa = PBXGroup;
+			children = (
+				830032662D2BE7900009CA1A /* NodeMock.swift */,
+				830032682D2BE7B20009CA1A /* NavigationNodeMock.swift */,
+			);
+			path = nav;
+			sourceTree = "<group>";
+		};
+		830032652D2BE7770009CA1A /* alert */ = {
+			isa = PBXGroup;
+			children = (
+				8300326A2D2BE8BB0009CA1A /* AlertMock.swift */,
+				8300326C2D2BE9370009CA1A /* AlertBuilderMock.swift */,
+				8300326E2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift */,
+			);
+			path = alert;
+			sourceTree = "<group>";
+		};
+		830032702D2BED760009CA1A /* controller helpers */ = {
+			isa = PBXGroup;
+			children = (
+				830032782D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift */,
+				830032762D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift */,
+				830032712D2BED8F0009CA1A /* FolderContentPaginatorMock.swift */,
+				830032742D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift */,
+			);
+			path = "controller helpers";
+			sourceTree = "<group>";
+		};
+		830032852D2C46CF0009CA1A /* controls */ = {
+			isa = PBXGroup;
+			children = (
+				830032882D2C474A0009CA1A /* ViewMock.swift */,
+				830032862D2C46ED0009CA1A /* TextFieldMock.swift */,
+				8300328A2D2C48540009CA1A /* ButtonMock.swift */,
+				8300328C2D2C48CC0009CA1A /* ButtonItemMock.swift */,
+			);
+			path = controls;
+			sourceTree = "<group>";
+		};
+		830032962D2C6B6A0009CA1A /* controller helpers */ = {
+			isa = PBXGroup;
+			children = (
+				830032902D2C508B0009CA1A /* SettingsSaver.swift */,
+			);
+			path = "controller helpers";
+			sourceTree = "<group>";
+		};
+		830032972D2C6B770009CA1A /* controller helpers */ = {
+			isa = PBXGroup;
+			children = (
+				830032922D2C572C0009CA1A /* SettingsSaverMock.swift */,
+				830032982D2C6B8F0009CA1A /* SettingsSaverInputMock.swift */,
+				8300329A2D2C6C6C0009CA1A /* SettingsSaverOutputMock.swift */,
+				830032942D2C58730009CA1A /* SettingsSaverTests.swift */,
+			);
+			path = "controller helpers";
+			sourceTree = "<group>";
+		};
+		830ADC3A2D2AB73E0053C920 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				830ADC3B2D2AB7680053C920 /* FolderContent.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		831532782D0509520063F0E3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,8 +552,13 @@
 			isa = PBXGroup;
 			children = (
 				831532A12D05D8EB0063F0E3 /* navigator */,
+				8300324F2D2B983D0009CA1A /* model */,
+				830032562D2B9C210009CA1A /* FileBrowserViewMock.swift */,
+				8300324D2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift */,
 				8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */,
 				831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */,
+				8300324B2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift */,
+				830032702D2BED760009CA1A /* controller helpers */,
 			);
 			path = "file browser";
 			sourceTree = "<group>";
@@ -416,6 +568,8 @@
 			children = (
 				831532A02D05D8E10063F0E3 /* navigator */,
 				8315328C2D05D2EF0063F0E3 /* SettingsControllerTests.swift */,
+				8300328E2D2C4D280009CA1A /* SettingsViewMock.swift */,
+				830032972D2C6B770009CA1A /* controller helpers */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -426,6 +580,7 @@
 				8366EA732D2738F20024CACB /* LoadingRegistryMock.swift */,
 				831532972D05D6920063F0E3 /* LoadingRegistryImplTests.swift */,
 				831532892D050F6C0063F0E3 /* BucketRepositoryFactoryMock.swift */,
+				8300327A2D2C19000009CA1A /* BucketRepositoryMock.swift */,
 				835B54352D22AD0900D1719E /* LoadingStateSyncerMock.swift */,
 				8366EA712D2738850024CACB /* LoadingStateSyncerImplTests.swift */,
 				8366EA5A2D2480EB0024CACB /* LocalUrlFinderMock.swift */,
@@ -507,7 +662,10 @@
 		831532A32D05D9660063F0E3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				830032632D2BE76E0009CA1A /* nav */,
+				830032652D2BE7770009CA1A /* alert */,
 				831532A42D05D9710063F0E3 /* hud */,
+				830032852D2C46CF0009CA1A /* controls */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -524,6 +682,8 @@
 			isa = PBXGroup;
 			children = (
 				831532852D050EFF0063F0E3 /* CancelllableMock.swift */,
+				830032802D2C33F10009CA1A /* AsyncSequenceMock.swift */,
+				830032822D2C35470009CA1A /* AsyncSequenceIteratorMock.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -649,10 +809,12 @@
 			children = (
 				83314ED32CFD571A0057906F /* cell */,
 				838F2BDF2CFFB6D800735166 /* navigator */,
+				830ADC3A2D2AB73E0053C920 /* model */,
 				839F7B2D2CF32AEE005BABE1 /* FileBrowserVc.swift */,
 				837A9C562D0782C700C30493 /* FileBrowserPresenter.swift */,
 				83314EC92CFD3E960057906F /* FileBrowserController.swift */,
 				838F2BE22CFFBA1300735166 /* FileBrowserCellVmFactory.swift */,
+				8300325A2D2BD05B0009CA1A /* controller helpers */,
 			);
 			path = "file browser";
 			sourceTree = "<group>";
@@ -663,6 +825,7 @@
 				8395169E2D04BA6E00E92EA4 /* navigator */,
 				832D40AE2CF68F12009FF6E7 /* SettingsVc.swift */,
 				8395167B2D01988C00E92EA4 /* SettingsController.swift */,
+				830032962D2C6B6A0009CA1A /* controller helpers */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -697,7 +860,6 @@
 			isa = PBXGroup;
 			children = (
 				835B53892D1202A500D1719E /* models */,
-				835B53872D10A64900D1719E /* ContentResolver.swift */,
 				834B3EAC2D0EF3950081E7DA /* CoreDataStack.swift */,
 				839B50962D22CEE8003F714C /* Model.xcdatamodeld */,
 				835B53EE2D2047A300D1719E /* folder */,
@@ -836,6 +998,7 @@
 			children = (
 				835B53DF2D202CBE00D1719E /* Alert.swift */,
 				835B53E12D202D5200D1719E /* AlertImpl.swift */,
+				830032612D2BE4960009CA1A /* AlertBuilderFactory.swift */,
 			);
 			path = alert;
 			sourceTree = "<group>";
@@ -1369,60 +1532,87 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				830032732D2BEE130009CA1A /* FileBrowserControllerTests.swift in Sources */,
+				8300327B2D2C19000009CA1A /* BucketRepositoryMock.swift in Sources */,
 				8366EA472D242F980024CACB /* ApiConfigStoreImplTests.swift in Sources */,
+				830032752D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift in Sources */,
 				831532802D050E820063F0E3 /* FileBrowserNavigatorMock.swift in Sources */,
+				830032792D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift in Sources */,
 				8366EA532D24684A0024CACB /* BlankAsyncSequence.swift in Sources */,
 				8366EAA42D2955630024CACB /* HttpTaskMock.swift in Sources */,
 				833D80F42D2B4C33005D817C /* Date+mock.swift in Sources */,
 				8366EA9B2D28A2980024CACB /* FileTransferPlacerMock.swift in Sources */,
 				831532882D050F1A0063F0E3 /* NotificationSubjectMock.swift in Sources */,
+				830032512D2B98560009CA1A /* FolderContentMock.swift in Sources */,
 				830ADC382D2A0CCC0053C920 /* ApiBucketRepositoryFactoryImplTests.swift in Sources */,
 				8366EA872D2840EF0024CACB /* NSError+mock.swift in Sources */,
+				8300328F2D2C4D280009CA1A /* SettingsViewMock.swift in Sources */,
 				8366EA992D289EE60024CACB /* HttpTransferClientMock.swift in Sources */,
+				8300324C2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift in Sources */,
 				8366EA932D28821E0024CACB /* FileTransferPlacerImplTests.swift in Sources */,
 				8315328F2D05D5830063F0E3 /* SettingsNavigatorMock.swift in Sources */,
+				830032872D2C46ED0009CA1A /* TextFieldMock.swift in Sources */,
+				830032772D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift in Sources */,
+				8300326B2D2BE8BB0009CA1A /* AlertMock.swift in Sources */,
 				8366EA722D2738850024CACB /* LoadingStateSyncerImplTests.swift in Sources */,
 				830ADC342D29F9470053C920 /* ApiBucketRepositoryImplTests.swift in Sources */,
+				8300329B2D2C6C6C0009CA1A /* SettingsSaverOutputMock.swift in Sources */,
 				8315328A2D050F6C0063F0E3 /* BucketRepositoryFactoryMock.swift in Sources */,
 				8366EA782D2802BA0024CACB /* FolderContentRequestFactoryImplTests.swift in Sources */,
 				831532952D05D5E50063F0E3 /* HudPresenterMock.swift in Sources */,
 				83E34BF52D23F9B500BDDF48 /* NotificationSubjectImplTests.swift in Sources */,
+				8300326F2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift in Sources */,
+				8300326D2D2BE9370009CA1A /* AlertBuilderMock.swift in Sources */,
 				8366EA852D283C610024CACB /* Entry+mock.swift in Sources */,
 				8366EA742D2738F20024CACB /* LoadingRegistryMock.swift in Sources */,
 				839B510A2D23170C003F714C /* TestApiResponses.swift in Sources */,
 				8366EA4F2D244FFA0024CACB /* NotificationSubjectTests.swift in Sources */,
 				8366EA4A2D2432210024CACB /* CodableSubscriptMock.swift in Sources */,
+				830032892D2C474A0009CA1A /* ViewMock.swift in Sources */,
 				831532912D05D5A40063F0E3 /* ApiConfigStoreMock.swift in Sources */,
+				8300328D2D2C48CC0009CA1A /* ButtonItemMock.swift in Sources */,
 				835B54392D22AD9200D1719E /* MainActorRunnerMock.swift in Sources */,
-				8315327D2D050A170063F0E3 /* FileBrowserControllerTests.swift in Sources */,
 				831532932D05D5CF0063F0E3 /* BucketRegionLoaderMock.swift in Sources */,
 				8366EA8B2D284EBA0024CACB /* XmlDecoderMock.swift in Sources */,
+				830032532D2B9AC10009CA1A /* FolderContentImplTests.swift in Sources */,
 				839516AC2D04D1FB00E92EA4 /* HttpClientMock.swift in Sources */,
 				832EB21B2D04E94800A10DD5 /* TestCase+Extensions.swift in Sources */,
 				8366EAA82D2992B70024CACB /* RequestSignerImplTests.swift in Sources */,
 				8366EA552D247AF90024CACB /* AsyncPerformerMock.swift in Sources */,
+				830032592D2BB1040009CA1A /* FolderContentOutputMock.swift in Sources */,
 				8366EA7B2D2803690024CACB /* RequestSignerMock.swift in Sources */,
+				830032572D2B9C210009CA1A /* FileBrowserViewMock.swift in Sources */,
+				830032832D2C35470009CA1A /* AsyncSequenceIteratorMock.swift in Sources */,
+				830032722D2BED8F0009CA1A /* FolderContentPaginatorMock.swift in Sources */,
 				8366EA972D289D2C0024CACB /* FileDownloaderImplTests.swift in Sources */,
 				831532822D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift in Sources */,
 				8315328D2D05D2EF0063F0E3 /* SettingsControllerTests.swift in Sources */,
 				8366EA7F2D282D000024CACB /* FolderContentLoaderMock.swift in Sources */,
 				835B53912D171D2100D1719E /* ArrayAsyncSequence.swift in Sources */,
+				830032932D2C572C0009CA1A /* SettingsSaverMock.swift in Sources */,
+				830032952D2C58730009CA1A /* SettingsSaverTests.swift in Sources */,
 				8366EA952D2899F20024CACB /* FileDownloadRequestFactoryImplTests.swift in Sources */,
 				835B54362D22AD0900D1719E /* LoadingStateSyncerMock.swift in Sources */,
+				8300328B2D2C48540009CA1A /* ButtonMock.swift in Sources */,
+				8300324E2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift in Sources */,
 				8366EA8D2D2850E30024CACB /* FolderContentRequestFactoryMock.swift in Sources */,
 				8366EA832D2836100024CACB /* ApiConfig+mock.swift in Sources */,
 				8366EA892D2848710024CACB /* FolderContentLoaderImplTests.swift in Sources */,
 				839B51032D231152003F714C /* XmlDecoderImplTests.swift in Sources */,
 				8315329B2D05D7DF0063F0E3 /* SyncPerformerMock.swift in Sources */,
+				830032992D2C6B8F0009CA1A /* SettingsSaverInputMock.swift in Sources */,
 				831532842D050ECD0063F0E3 /* FileSystemMock.swift in Sources */,
 				8366EAA62D296C210024CACB /* FileDownloadRequestFactoryMock.swift in Sources */,
 				831532982D05D6920063F0E3 /* LoadingRegistryImplTests.swift in Sources */,
 				831532862D050EFF0063F0E3 /* CancelllableMock.swift in Sources */,
+				830032692D2BE7B20009CA1A /* NavigationNodeMock.swift in Sources */,
 				8366EA5B2D2480EB0024CACB /* LocalUrlFinderMock.swift in Sources */,
 				8366EAA22D2949880024CACB /* TaskLauncherMock.swift in Sources */,
 				8366EA592D247E2B0024CACB /* TransferDaoMock.swift in Sources */,
+				830032672D2BE7900009CA1A /* NodeMock.swift in Sources */,
 				8366EA702D2731620024CACB /* LocalUrlFinderTests.swift in Sources */,
 				8366EAAB2D2993580024CACB /* CurrentDateProviderMock.swift in Sources */,
+				830032812D2C33F10009CA1A /* AsyncSequenceMock.swift in Sources */,
 				830ADC362D29FA580053C920 /* FileDownloaderMock.swift in Sources */,
 				83530D4E2CFCAE5A00376B3D /* BucketRegionLoaderTests.swift in Sources */,
 				8366EA7D2D282B970024CACB /* ApiEntryPageSequenceTests.swift in Sources */,
@@ -1442,6 +1632,7 @@
 				839B509E2D22CF5F003F714C /* EntryCellVm.swift in Sources */,
 				839B509F2D22CF5F003F714C /* Node.swift in Sources */,
 				8366EAA02D2947AF0024CACB /* DetachedTaskLauncherImpl.swift in Sources */,
+				830032622D2BE4960009CA1A /* AlertBuilderFactory.swift in Sources */,
 				839B50A02D22CF5F003F714C /* FolderContentRequestFactory.swift in Sources */,
 				839B50A12D22CF5F003F714C /* ViewImpl.swift in Sources */,
 				839B50A22D22CF5F003F714C /* FolderDao.swift in Sources */,
@@ -1461,6 +1652,7 @@
 				839B50AE2D22CF5F003F714C /* SettingsNavigatorImpl.swift in Sources */,
 				839B50AF2D22CF5F003F714C /* SyncPerformer.swift in Sources */,
 				839B50B02D22CF5F003F714C /* TransferModel+Transfer.swift in Sources */,
+				8300325C2D2BD0A10009CA1A /* FolderContentPaginator.swift in Sources */,
 				839B50B12D22CF5F003F714C /* TextFieldImpl.swift in Sources */,
 				839B50B32D22CF5F003F714C /* HttpClientImpl.swift in Sources */,
 				839B50B42D22CF5F003F714C /* MainActorRunnerImpl.swift in Sources */,
@@ -1490,11 +1682,13 @@
 				839B50CB2D22CF5F003F714C /* BucketRepositoryFactory.swift in Sources */,
 				839B50CC2D22CF5F003F714C /* HudPresenterImpl.swift in Sources */,
 				839B50CD2D22CF5F003F714C /* NavigationNodeFactory.swift in Sources */,
+				830ADC3C2D2AB7680053C920 /* FolderContent.swift in Sources */,
 				839B50CE2D22CF5F003F714C /* BucketRepository.swift in Sources */,
 				839B50CF2D22CF5F003F714C /* CurrrentDateProvider.swift in Sources */,
 				839B50D02D22CF5F003F714C /* CoreDataStack.swift in Sources */,
 				839B50D12D22CF5F003F714C /* NotificationSubject.swift in Sources */,
 				839B50D22D22CF5F003F714C /* Bucket.swift in Sources */,
+				830032912D2C508B0009CA1A /* SettingsSaver.swift in Sources */,
 				839B50D32D22CF5F003F714C /* Cancellable.swift in Sources */,
 				839B50D42D22CF5F003F714C /* ListBucketResult.swift in Sources */,
 				839B50D52D22CF5F003F714C /* ActorAsyncPerformerImpl.swift in Sources */,
@@ -1503,7 +1697,6 @@
 				839B50D82D22CF5F003F714C /* XmlDecoderImpl.swift in Sources */,
 				839B50D92D22CF5F003F714C /* ApiCredential.swift in Sources */,
 				839B50DA2D22CF5F003F714C /* LoadingStateSyncer.swift in Sources */,
-				839B50DB2D22CF5F003F714C /* ContentResolver.swift in Sources */,
 				839B50DC2D22CF5F003F714C /* NodeImpl.swift in Sources */,
 				839B50DD2D22CF5F003F714C /* Alert.swift in Sources */,
 				839B50DE2D22CF5F003F714C /* NavigationNode.swift in Sources */,

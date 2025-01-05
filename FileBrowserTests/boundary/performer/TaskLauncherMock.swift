@@ -29,4 +29,10 @@ final class TaskLauncherMock: TaskLauncher {
         
         return task
     }
+    
+    func awaitTasks() async throws {
+        for task in launchTasks {
+            _ = try await task.result.get()
+        }
+    }
 }

@@ -19,7 +19,7 @@ extension FileBrowserCellVmFactory {
     }
 }
 
-struct FileBrowserVmFactoryImpl: FileBrowserCellVmFactory {
+struct FileBrowserCellVmFactoryImpl: FileBrowserCellVmFactory {
     func createVm(entry: Entry) -> EntryCellVm {
         EntryCellVm(
             iconName: entry.isFolder ? "folder" : "doc",

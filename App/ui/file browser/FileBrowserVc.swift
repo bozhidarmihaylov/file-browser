@@ -8,36 +8,56 @@
 import UIKit
 
 protocol FileBrowserView: AnyObject {
+    var node: Node { get }
+    
     var visibleIndexPaths: [IndexPath] { get }
     
-    func configureCellAccessoryView(
-        at indexPath: IndexPath,
-        with accessoryVm: AccessoryVm
-    )
-
     func reloadData()
     func insertRows(
         at indexPath: IndexPath,
         count: Int
     )
+    func updateAccessoryViewForRows(at indexPaths: [IndexPath])
     
     func deselectCell(at indexPath: IndexPath)
 }
 
-class FileBrowserVc: UIViewController {
+protocol FileBrowserViewInput {
+    func cellCount() -> Int
+    func cellVm(at indexPath: IndexPath) -> EntryCellVm
+}
+
+protocol FileBrowserViewOutput {
+    func onInit()
+    func onDeinit()
+    func onViewLoaded()
+    func onViewAppeared()
     
-    var controller: FileBrowserController!
+    func onRightButtonItemTap()
+    
+    func onCellTap(at indexPath: IndexPath)
+    func onCellAccessoryTap(at indexPath: IndexPath)
+    
+    func shouldHighlightRow(at indexPath: IndexPath) -> Bool
+    
+    func willDisplayCell(at indexPath: IndexPath)
+}
+
+class FileBrowserVc: UIViewController {
+
+    var input: FileBrowserViewInput!
+    var output: FileBrowserViewOutput!
     
     @IBOutlet private weak var tableView: UITableView!
     
     deinit {
-        controller.onDeinit()
-    }    
+        output.onDeinit()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        controller.onViewAppeared()
+        output.onViewAppeared()
     }
 
     override func viewDidLoad() {
@@ -45,15 +65,17 @@ class FileBrowserVc: UIViewController {
         
         tableView.register(EntryCell.self, forCellReuseIdentifier: "Cell")
         
-        controller.onViewLoaded()
+        output.onViewLoaded()
     }
     
     @IBAction func onRightButtonItemTap(_ sender: Any) {
-        controller.onRightButtonItemTap()
+        output.onRightButtonItemTap()
     }
 }
 
 extension FileBrowserVc: FileBrowserView {
+    var node: Node { NodeImpl(vc: self) }
+    
     var visibleIndexPaths: [IndexPath] {
         tableView?.indexPathsForVisibleRows ?? []
     }
@@ -117,7 +139,7 @@ extension FileBrowserVc: FileBrowserView {
     }
     
     @objc private func onCellAccessoryTap(_ sender: UIView) {
-        controller.onCellAccessoryTap(at: IndexPath(row: sender.tag, section: 0))
+        output.onCellAccessoryTap(at: IndexPath(row: sender.tag, section: 0))
     }
     
     private func configureAccessoryView(
@@ -157,6 +179,20 @@ extension FileBrowserVc: FileBrowserView {
             return spinner
         }()
     }
+    
+    func updateAccessoryViewForRows(at indexPaths: [IndexPath]) {
+        indexPaths.forEach { indexPath in
+            guard let cell = tableView.cellForRow(at: indexPath) else { return }
+            
+            let cellVm = input.cellVm(at: indexPath).accessoryVm
+            
+            configureAccessoryView(
+                cell: cell,
+                at: indexPath,
+                with: cellVm
+            )
+        }
+    }
 }
 
 extension FileBrowserVc: UITableViewDataSource, UITableViewDelegate {
@@ -165,7 +201,7 @@ extension FileBrowserVc: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        controller.cellCount()
+        input.cellCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -173,17 +209,17 @@ extension FileBrowserVc: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellVm = controller.cellVm(at: indexPath)
+        let cellVm = input.cellVm(at: indexPath)
         configureCell(cell: cell, at: indexPath, with: cellVm)
 
-        controller.willDisplayCell(at: indexPath)
+        output.willDisplayCell(at: indexPath)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        controller.onCellTap(at: indexPath)
+        output.onCellTap(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        controller.shouldHighlightRow(at: indexPath)
+        output.shouldHighlightRow(at: indexPath)
     }
 }

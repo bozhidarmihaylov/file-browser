@@ -8,23 +8,31 @@
 import Foundation
 @testable import App
 
+fileprivate let mockBucketName = Bucket.mock.name
+
+extension Entry {
+    static let fileMock = Entry(
+        name: "name1.ext1",
+        path: "a/b/name1.ext1",
+        bucketName: mockBucketName,
+        isFolder: false,
+        loadingState: .notLoaded
+    )
+    
+    static let folderMock = Entry(
+        name: "name2",
+        path: "a/b/name2",
+        bucketName: mockBucketName,
+        isFolder: true,
+        loadingState: .notLoaded
+    )
+}
+
+
 extension [Entry] {
-    private static let mockBucketName = Bucket.mock.name
     static let mock = [
-        Entry(
-            name: "name1.ext1",
-            path: "a/b/name1.ext1",
-            bucketName: mockBucketName,
-            isFolder: false,
-            loadingState: .notLoaded
-        ),
-        Entry(
-            name: "name2",
-            path: "a/b/name2",
-            bucketName: mockBucketName,
-            isFolder: true,
-            loadingState: .notLoaded
-        ),
+        Entry.fileMock,
+        Entry.folderMock,
         Entry(
             name: "name3.ext2",
             path: "a/b/name3.ext2",

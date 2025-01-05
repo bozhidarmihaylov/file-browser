@@ -35,13 +35,23 @@ struct NavigationNodeFactoryImpl: NavigationNodeFactory {
             navigationNodeFactory: self
         )
         
+        let folderContent = FolderContentImpl(
+            path: path
+        )
+        
+        let presenter = FileBrowserPresenterImpl(
+            folderContent: folderContent
+        )
+        
         let controller = FileBrowserControllerImpl(
             path: path,
+            folderContent: folderContent,
             navigator: navigator
         )
         controller.view = vc
         
-        vc.controller = controller
+        vc.input = presenter
+        vc.output = controller
         
         controller.onInit()
         
@@ -61,7 +71,7 @@ struct NavigationNodeFactoryImpl: NavigationNodeFactory {
         )
         controller.view = vc
         
-        vc.controller = controller
+        vc.output = controller
         
         return vc
     }
