@@ -109,18 +109,23 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testSaveDidFinish_failure_errorAlertShown() {
-        let (sut, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock) = createSut()
-        _ = viewMock
-        
-        sut.saveDidFinish(with: .failure(NSError.mock))
-        
-        XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
-        XCTAssertEqual(alertBuilderMock.setMessageCalls.count, 1)
-        XCTAssertEqual(alertBuilderMock.setMessageCalls.last, Copy.saveAlertErrorMessage)
-        
-        XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
-        XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? AnyObject, viewMock.node as? AnyObject)
-        XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
+        for isConnectivityError in [false, true] {
+            let (sut, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock) = createSut()
+            _ = viewMock
+            
+            let error = isConnectivityError ? Copy.connectivityError : NSError.mock
+            let errorMessage = isConnectivityError ? Copy.connectivityErrorMessage : Copy.saveAlertErrorMessage
+            
+            sut.saveDidFinish(with: .failure(error))
+            
+            XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
+            XCTAssertEqual(alertBuilderMock.setMessageCalls.count, 1)
+            XCTAssertEqual(alertBuilderMock.setMessageCalls.last, errorMessage)
+            
+            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
+            XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? AnyObject, viewMock.node as? AnyObject)
+            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
+        }
     }
     
     // MARK: onViewLoaded()
@@ -399,5 +404,8 @@ final class SettingsControllerTests: XCTestCase {
         static let config = ApiConfig.mock
         
         static let saveAlertErrorMessage = "Bucket not found"
+        static let connectivityErrorMessage = "Connectivity error"
+        
+        static let connectivityError = NSError(domain: NSURLErrorDomain, code: 1)
     }
 }

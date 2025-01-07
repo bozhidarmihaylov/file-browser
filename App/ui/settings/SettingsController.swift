@@ -106,11 +106,13 @@ extension SettingsControllerImpl: SettingsSaverOutput {
         case .success():
             navigator.goForward()
             
-        case .failure(_):
+        case .failure(let error):
             guard let node = view?.node else { return }
             
+            let isNetworkingError = (error as NSError).domain == NSURLErrorDomain
+            
             alertBuilderFactory.createAlertBuilder()
-                .setMessage("Bucket not found")
+                .setMessage(isNetworkingError ? "Connectivity error" : "Bucket not found")
                 .build()
                 .show(on: node, animated: true)
         }

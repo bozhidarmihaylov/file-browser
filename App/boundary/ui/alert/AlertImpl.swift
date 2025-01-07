@@ -48,9 +48,11 @@ final class AlertBuilderImpl: AlertBuilder {
     }
     
     func build() -> Alert {
-        let alertVc = UIAlertController()
-        alertVc.title = title
-        alertVc.message = message
+        let alertVc = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
         
         let node = NodeImpl(vc: alertVc)
         
@@ -84,6 +86,20 @@ final class AlertBuilderImpl: AlertBuilder {
             )
         }
         
+        if okButtonTitle == nil && cancelButtonTitle == nil {
+            alertVc.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .default,
+                    handler: okButtonAction.map { action in
+                        { _ in
+                            action(alert)
+                        }
+                    }
+                )
+            )
+        }
+        
         return alert
     }
     
@@ -103,7 +119,7 @@ struct AlertImpl: Alert {
     private let node: Node
     
     func show(on node: Node, animated: Bool) {
-        node.present(node, animated: animated)
+        node.present(self.node, animated: animated)
     }
     
     func hide(animated: Bool) {

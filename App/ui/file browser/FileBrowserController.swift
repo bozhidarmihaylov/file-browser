@@ -211,7 +211,9 @@ extension FileBrowserControllerImpl: FolderContentPaginatorOutput {
                 return
             }
             
-            let msg = "Loading folder content failed"
+            let isNetworkingError = (error as NSError).domain == NSURLErrorDomain
+            
+            let msg = isNetworkingError ? "Connectivity error" : "Loading folder content failed"
             
             alertBuilderFactory.createAlertBuilder()
                 .setMessage(msg)

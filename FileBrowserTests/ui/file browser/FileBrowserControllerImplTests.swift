@@ -391,17 +391,22 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testDidFinishLoadingNewPage_failure_alertMessageShown() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock, _) = createSut()
-        
-        sut.didFinishLoadingNewPage(with: .failure(NSError.mock))
-        
-        XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
-        XCTAssertEqual(alertBuilderMock.setMessageCalls, [Copy.loadingFolderFailedErrorMessage])
-        XCTAssertEqual(alertBuilderMock.buildCallCount, 1)
-
-        XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
-        XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? NodeMock, viewMock.node as? NodeMock)
-        XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
+        for isConnectivityError in [false, true] {
+            let (sut, _, _, _, _, _, _, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock, _) = createSut()
+            
+            let error = isConnectivityError ? Copy.connectivityError : NSError.mock
+            let errorMessage = isConnectivityError ? Copy.connectivityErrorMessage : Copy.loadingFolderFailedErrorMessage
+            
+            sut.didFinishLoadingNewPage(with: .failure(error))
+            
+            XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
+            XCTAssertEqual(alertBuilderMock.setMessageCalls, [errorMessage])
+            XCTAssertEqual(alertBuilderMock.buildCallCount, 1)
+            
+            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
+            XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? NodeMock, viewMock.node as? NodeMock)
+            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
+        }
     }
     
     // MARK: Helper methods
@@ -564,6 +569,9 @@ final class FileBrowserControllerImplTests: XCTestCase {
             section: 0
         )
         static let loadingFolderFailedErrorMessage = "Loading folder content failed"
+        static let connectivityErrorMessage = "Connectivity error"
+        
+        static let connectivityError = NSError(domain: NSURLErrorDomain, code: 1)
     }
 }
 
