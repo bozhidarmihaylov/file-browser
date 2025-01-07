@@ -26,7 +26,8 @@ final class FileDownloaderImpl {
         fileTransferPlacer: FileTransferPlacer = FileTransferPlacerImpl(),
         fileSystem: FileSystem = FileSystemImpl(),
         taskLauncher: TaskLauncher = TaskLauncherImpl(),
-        currentDateProvider: CurrentDateProvider = CurrentDateProviderImpl()
+        currentDateProvider: CurrentDateProvider = CurrentDateProviderImpl(),
+        downloadEventBus: FileDownloadEventBus = FileDownloadEventBusImpl()
     ) {
         self.requestFactory = requestFactory
         self.httpTransferClient = httpTransferClient
@@ -37,6 +38,7 @@ final class FileDownloaderImpl {
         self.fileSystem = fileSystem
         self.taskLauncher = taskLauncher
         self.currentDateProvider = currentDateProvider
+        self.downloadEventBus = downloadEventBus
         
         httpTransferClient.transferDelegate = self
     }
@@ -50,6 +52,7 @@ final class FileDownloaderImpl {
     private let fileSystem: FileSystem
     private let taskLauncher: TaskLauncher
     private let currentDateProvider: CurrentDateProvider
+    private let downloadEventBus: FileDownloadEventBus
     
     private var continuationByTaskId: [Int: CheckedContinuation<URL, Error>] = [:]
 }
@@ -124,7 +127,16 @@ extension FileDownloaderImpl: HttpTransferDelegate {
         
         guard let continuation else {
             taskLauncher.launch {
+                let transfer = try? await self.transferDao.get(taskId: taskId)
+                
                 try? await self.loadingRegistry.unregisterTransfer(taskId: taskId)
+                
+                if let transfer {
+                    self.downloadEventBus.send(
+                        path: transfer.relativeFilePath,
+                        error: error
+                    )
+                }
             }
             return
         }
@@ -152,9 +164,18 @@ extension FileDownloaderImpl: HttpTransferDelegate {
                 continuation.resume(throwing: error)
             } else {
                 taskLauncher.launch {
+                    let transfer = try? await self.transferDao.get(taskId: taskId)
+                    
                     try? await self.loadingRegistry.unregisterTransfer(
                         taskId: taskId
                     )
+                    
+                    if let transfer {
+                        self.downloadEventBus.send(
+                            path: transfer.relativeFilePath,
+                            error: error
+                        )
+                    }
                 }
             }
             return
@@ -162,11 +183,20 @@ extension FileDownloaderImpl: HttpTransferDelegate {
         
         guard let continuation else {
             taskLauncher.launch {
-                if let transfer = try? await self.transferDao.get(taskId: taskId) {
+                let transfer = try? await self.transferDao.get(taskId: taskId)
+                
+                if let transfer {
                     try? self.fileTransferPlacer.placeTransfer(transfer, from: newUrl)
                 }
                 
                 try? await self.loadingRegistry.unregisterTransfer(taskId: taskId)
+                
+                if let transfer {
+                    self.downloadEventBus.send(
+                        path: transfer.relativeFilePath,
+                        error: nil
+                    )
+                }
             }
             return
         }

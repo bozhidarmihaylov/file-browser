@@ -25,7 +25,8 @@ final class FileBrowserControllerImpl  {
         notificationSubject: NotificationSubject = NotificationSubjectImpl(),
         mainActorRunner: MainActorRunner = MainActorRunnerImpl(),
         taskLauncher: TaskLauncher = TaskLauncherImpl(),
-        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl()
+        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl(),
+        downloadEventBus: FileDownloadEventBus = FileDownloadEventBusImpl()
     ) {
         self.path = path
         self.folderContent = folderContent
@@ -36,6 +37,7 @@ final class FileBrowserControllerImpl  {
         self.taskLauncher = taskLauncher
         self.contentPaginator = contentPaginator
         self.alertBuilderFactory = alertBuilderFactory
+        self.downloadEventBus = downloadEventBus
         
         self.contentPaginator.input = self
         self.contentPaginator.output = self
@@ -53,6 +55,7 @@ final class FileBrowserControllerImpl  {
     private let mainActorRunner: MainActorRunner
     private let taskLauncher: TaskLauncher
     private let alertBuilderFactory: AlertBuilderFactory
+    private let downloadEventBus: FileDownloadEventBus
     
     private lazy var repository: BucketRepository = try! repositoryFactory.createBucketRepository()!
     private(set) var pageIterator: AnyAsyncSequence<[Entry]>.AsyncIterator? = nil
@@ -61,12 +64,19 @@ final class FileBrowserControllerImpl  {
     private var hasLoadedAllPages = false
         
     private var willEnterForegroundSubscription: Cancellable? = nil
+    private var didDownloadFileSubscription: Cancellable? = nil
     private func subscribe() {
-        willEnterForegroundSubscription?.cancel()
-        
+        willEnterForegroundSubscription?.cancel()        
         willEnterForegroundSubscription = notificationSubject.subscribe(
             name: "UIApplicationWillEnterForegroundNotification"
         ) { [weak self] _ in
+            self?.syncEntriesLocally()
+        }
+        
+        didDownloadFileSubscription?.cancel()
+        didDownloadFileSubscription = downloadEventBus.subscribe(
+            parentPath: path
+        ) { [weak self] filePath, error in
             self?.syncEntriesLocally()
         }
     }
@@ -74,6 +84,9 @@ final class FileBrowserControllerImpl  {
     private func unsubscribe() {
         willEnterForegroundSubscription?.cancel()
         willEnterForegroundSubscription = nil
+        
+        didDownloadFileSubscription?.cancel()
+        didDownloadFileSubscription = nil
     }
     
     private func syncEntriesLocally() {

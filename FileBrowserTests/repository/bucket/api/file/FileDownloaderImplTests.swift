@@ -13,7 +13,7 @@ final class FileDownloaderImplTest: XCTestCase {
     // MARK: init()
     
     func testInit_called_httpTransferDelegateSetToSut() async throws {
-        let (sut, _, _, httpTransferClientMock, _ , _, _, _, _, _) = createSut()
+        let (sut, _, _, httpTransferClientMock, _ , _, _, _, _, _, _) = createSut()
         
         XCTAssertIdentical(httpTransferClientMock.transferDelegate, sut)
     }
@@ -21,7 +21,7 @@ final class FileDownloaderImplTest: XCTestCase {
     // MARK: downloadFile()
     
     func testDownloadFile_success_loadedFileEntryReturned() async throws {
-        let (sut, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, _, _, _, _) = createSut()
         
         let entry = try await downloadFile(sut: sut)
 
@@ -29,7 +29,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_paramsSentToRequestFactory() async throws {
-        let (sut, requestFactoryMock, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, requestFactoryMock, _, _, _, _, _, _, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -39,7 +39,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_requestSentToTransferClient() async throws {
-        let (sut, _, _, httpTransferClientMock, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, httpTransferClientMock, _, _, _, _, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -48,7 +48,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_pendingTransferRegistered() async throws {
-        let (sut, _, _, _, registryMock, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, registryMock, _, _, _, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -57,7 +57,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_taskResumed() async throws {
-        let (sut, _, transferTaskMock, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, transferTaskMock, _, _, _, _, _, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -65,7 +65,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_initialFileMovedToTemporaryLocation() async throws {
-        let (sut, _, _, _, _, _, _, _, fileSystemMock, _) = createSut()
+        let (sut, _, _, _, _, _, _, _, fileSystemMock, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -75,7 +75,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_filePlacedFromSaveTemporaryUrl() async throws {
-        let (sut, _, _, _, _, _, _, transferPlacerMock, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, transferPlacerMock, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -85,7 +85,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_success_transferUnregistered() async throws {
-        let (sut, _, _, _, registryMock, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, registryMock, _, _, _, _, _, _) = createSut()
         
         _ = try await downloadFile(sut: sut)
 
@@ -94,7 +94,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_registerError_errorReturned() async throws {
-        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _) = createSut(
+        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _, _) = createSut(
             hasRegisterTransferError: true
         )
         
@@ -113,7 +113,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_httpTransferError_errorReturned() async throws {
-        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _) = createSut(
+        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _, _) = createSut(
             hasHttpError: true
         )
         
@@ -133,14 +133,14 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_hasInitialFileMoveError_errorReturned() async throws {
-        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _) = createSut(
+        let (sut, _, transferTaskMock, _, registryMock, _, _, _, _, _, _) = createSut(
             hasInitialFileMoveError: true
         )
         
         await assertThrowsAsyncError(
             try await downloadFile(sut: sut)
         ) { error in
-            XCTAssertEqual(error as NSError, Copy.hasInitialFileMoveError)
+            XCTAssertEqual(error as NSError, Copy.initialFileMoveError)
         }
         
         XCTAssertEqual(transferTaskMock.resumeCallCount, 1)
@@ -153,7 +153,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_filePlacingError_errorReturned() async throws {
-        let (sut, _, transferTaskMock, _, registryMock, _, _, filePlacerMock, _, _) = createSut(
+        let (sut, _, transferTaskMock, _, registryMock, _, _, filePlacerMock, _, _, _) = createSut(
             hasFilePlacingError: true
         )
         
@@ -177,7 +177,7 @@ final class FileDownloaderImplTest: XCTestCase {
     }
     
     func testDownloadFile_unregisterTransferError_errorReturned() async throws {
-        let (sut, _, transferTaskMock, _, registryMock, _, _, filePlacerMock, _, _) = createSut(
+        let (sut, _, transferTaskMock, _, registryMock, _, _, filePlacerMock, _, _, _) = createSut(
             hasUnregisterTransferError: true
         )
         
@@ -203,7 +203,7 @@ final class FileDownloaderImplTest: XCTestCase {
     // MARK: didFailDownloading()
     
     func testDidFailDownloading_noStoredContinuation_unregistersTheTransfer() async throws {
-        let (sut, _, _, _, registryMock, _, _, _, _, taskLauncherMock) = createSut()
+        let (sut, _, _, _, registryMock, _, _, _, _, taskLauncherMock, _) = createSut()
         
         sut.didFailDownloading(
             taskId: Copy.taskIdentifier,
@@ -219,6 +219,20 @@ final class FileDownloaderImplTest: XCTestCase {
         
         XCTAssertEqual(registryMock.unregisterTransferByTaskIdCalls.count, 1)
         XCTAssertEqual(registryMock.unregisterTransferByTaskIdCalls.last, Copy.taskIdentifier)
+    }
+    
+    func testDidFailDownloading_noStoredContinuation_eventBusNotified() async throws {
+        let (sut, _, _, _, _, _, _, _, _, taskLauncherMock, downloadEventBusMock) = createSut()
+        
+        sut.didFailDownloading(
+            taskId: Copy.taskIdentifier,
+            with: Copy.httpTransferError
+        )
+        try await taskLauncherMock.awaitTasks()
+        
+        XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.count, 1)
+        XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.last?.path, Copy.path)
+        XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.last?.error as? NSError, Copy.httpTransferError)
     }
     
     // MARK: didFinishDownloading()
@@ -245,16 +259,23 @@ final class FileDownloaderImplTest: XCTestCase {
         )
     }
     
-    func testDidFinishDownloading_noStoredContinuationAndInitialFileMoveFails_noErrorThrown() async throws {
+    func testDidFinishDownloading_noStoredContinuationAndInitialFileMoveFails_eventBusNotified() async throws {
         try await verifyDidFinishDownloading(
             hasInitialFileMoveError: true
+        )
+    }
+    
+    func testDidFinishDownloading_noStoredContinuationAndInitialFileMoveFailsAndNoTransferStored_eventBusNotNotified() async throws {
+        try await verifyDidFinishDownloading(
+            hasInitialFileMoveError: true,
+            hasTransferByTaskIdLookupError: true
         )
     }
     
     // MARK: didRecreateDownloadSession()
     
     func testDidRecreateDownloadSession_called_transfersWithTasksNotInSentOnesAreDeleted() async throws {
-        let (sut, _, _, _, _, transferDaoMock, _, _, _, taskLauncherMock) = createSut()
+        let (sut, _, _, _, _, transferDaoMock, _, _, _, taskLauncherMock, _) = createSut()
         
         sut.didRecreateBackgroundSession(with: Copy.downloadTasks)
         
@@ -286,7 +307,8 @@ final class FileDownloaderImplTest: XCTestCase {
         SyncPerformerMock,
         FileTransferPlacerMock,
         FileSystemMock,
-        TaskLauncherMock
+        TaskLauncherMock,
+        FileDownloadEventBusMock
     ) {
         let requestFactoryMock = FileDownloadRequestFactoryMock()
         requestFactoryMock.createDownloadRequestResult = Copy.request
@@ -324,13 +346,15 @@ final class FileDownloaderImplTest: XCTestCase {
         let fileSystemMock = FileSystemMock()
         fileSystemMock.temporaryDirectoryUrlResult = Copy.temporaryDirectoryUrl
         if hasInitialFileMoveError {
-            fileSystemMock.moveFileAtUrlToUrlError = Copy.hasInitialFileMoveError
+            fileSystemMock.moveFileAtUrlToUrlError = Copy.initialFileMoveError
         }
         
         let taskLauncherMock = TaskLauncherMock()
         
         let currentProviderDateMock = CurrentDateProviderMock()
         currentProviderDateMock.currentDateResult = Copy.date
+               
+        let downloadEventBusMock = FileDownloadEventBusMock()
         
         let sut = FileDownloaderImpl(
             requestFactory: requestFactoryMock,
@@ -341,7 +365,8 @@ final class FileDownloaderImplTest: XCTestCase {
             fileTransferPlacer: fileTransferPlacerMock,
             fileSystem: fileSystemMock,
             taskLauncher: taskLauncherMock,
-            currentDateProvider: currentProviderDateMock
+            currentDateProvider: currentProviderDateMock,
+            downloadEventBus: downloadEventBusMock
         )
         
         httpTaskMock.resumeOnCall = {
@@ -368,7 +393,8 @@ final class FileDownloaderImplTest: XCTestCase {
             syncPerformerMock,
             fileTransferPlacerMock,
             fileSystemMock,
-            taskLauncherMock
+            taskLauncherMock,
+            downloadEventBusMock
         )
     }
     
@@ -387,7 +413,7 @@ final class FileDownloaderImplTest: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) async throws {
-        let (sut, _, _, _, registryMock, transferDaoMock, _, transferPlacerMock, _, taskLauncherMock) = createSut(
+        let (sut, _, _, _, registryMock, transferDaoMock, _, transferPlacerMock, _, taskLauncherMock, downloadEventBusMock) = createSut(
             hasInitialFileMoveError: hasInitialFileMoveError,
             hasFilePlacingError: hasFilePlacingError,
             hasUnregisterTransferError: hasUnregisterTransferError,
@@ -415,7 +441,17 @@ final class FileDownloaderImplTest: XCTestCase {
         XCTAssertEqual(registryMock.unregisterTransferByTaskIdCalls.last, Copy.taskIdentifier)
         
         guard !hasInitialFileMoveError else {
-            XCTAssertEqual(transferDaoMock.getByTaskIdCalls.count, 0)
+            XCTAssertEqual(transferDaoMock.getByTaskIdCalls.count, 1)
+            XCTAssertEqual(transferDaoMock.getByTaskIdCalls.last, Copy.taskIdentifier)
+            
+            if hasTransferByTaskIdLookupError {
+                XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.count, 0)
+            } else {
+                XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.count, 1)
+                XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.last?.path, Copy.path)
+                XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.last?.error as? NSError, Copy.initialFileMoveError)
+            }
+            
             XCTAssertEqual(transferPlacerMock.placeTransferCalls.count, 0)
             return
         }
@@ -431,6 +467,10 @@ final class FileDownloaderImplTest: XCTestCase {
         XCTAssertEqual(transferPlacerMock.placeTransferCalls.count, 1)
         XCTAssertEqual(transferPlacerMock.placeTransferCalls.last?.transfer, Copy.transferExpectedResult)
         XCTAssertEqual(transferPlacerMock.placeTransferCalls.last?.temporaryUrl, Copy.saveTemporaryFileUrl)
+        
+        XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.count, 1)
+        XCTAssertEqual(downloadEventBusMock.sendForPathWithErrorCalls.last?.path, Copy.path)
+        XCTAssertNil(downloadEventBusMock.sendForPathWithErrorCalls.last?.error as? NSError)
     }
     
     private enum Copy {
@@ -452,7 +492,7 @@ final class FileDownloaderImplTest: XCTestCase {
         
         static let registerTransferError = NSError(domain: "registerTransferError", code: 1)
         static let httpTransferError = NSError(domain: "httpTransferError", code: 2)
-        static let hasInitialFileMoveError = NSError(domain: "hasInitialFileMoveError", code: 3)
+        static let initialFileMoveError = NSError(domain: "initialFileMoveError", code: 3)
         static let unregisterTransferError = NSError(domain: "unregisterTransferError", code: 4)
         static let filePlacingError = NSError(domain: "filePlacingError", code: 5)
         

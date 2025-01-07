@@ -21,7 +21,7 @@
 		8300326D2D2BE9370009CA1A /* AlertBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300326C2D2BE9370009CA1A /* AlertBuilderMock.swift */; };
 		8300326F2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300326E2D2BECDE0009CA1A /* AlertBuilderFactoryMock.swift */; };
 		830032722D2BED8F0009CA1A /* FolderContentPaginatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032712D2BED8F0009CA1A /* FolderContentPaginatorMock.swift */; };
-		830032732D2BEE130009CA1A /* FileBrowserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */; };
+		830032732D2BEE130009CA1A /* FileBrowserControllerImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315327C2D050A170063F0E3 /* FileBrowserControllerImplTests.swift */; };
 		830032752D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032742D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift */; };
 		830032772D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032762D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift */; };
 		830032792D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830032782D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift */; };
@@ -96,6 +96,7 @@
 		8366EAA62D296C210024CACB /* FileDownloadRequestFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366EAA52D296C210024CACB /* FileDownloadRequestFactoryMock.swift */; };
 		8366EAA82D2992B70024CACB /* RequestSignerImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366EAA72D2992B70024CACB /* RequestSignerImplTests.swift */; };
 		8366EAAB2D2993580024CACB /* CurrentDateProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8366EAAA2D2993580024CACB /* CurrentDateProviderMock.swift */; };
+		839317EF2D2D1439006FC901 /* FileDownloadEventBusImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839317EE2D2D1439006FC901 /* FileDownloadEventBusImplTests.swift */; };
 		839516AC2D04D1FB00E92EA4 /* HttpClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839516AB2D04D1FB00E92EA4 /* HttpClientMock.swift */; };
 		839B508C2D22C23F003F714C /* App.h in Headers */ = {isa = PBXBuildFile; fileRef = 839B508B2D22C23F003F714C /* App.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		839B508F2D22C23F003F714C /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B50892D22C23F003F714C /* App.framework */; };
@@ -198,6 +199,8 @@
 		839F7B2C2CF32AEE005BABE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F7B2B2CF32AEE005BABE1 /* SceneDelegate.swift */; };
 		839F7B332CF32AF1005BABE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 839F7B322CF32AF1005BABE1 /* Assets.xcassets */; };
 		839F7B362CF32AF1005BABE1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 839F7B352CF32AF1005BABE1 /* Base */; };
+		83A0B1FB2D2CA35A006D3BF2 /* FileDownloadEventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0B1F92D2CA31D006D3BF2 /* FileDownloadEventBus.swift */; };
+		83A0B1FD2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0B1FC2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift */; };
 		83E34BF52D23F9B500BDDF48 /* NotificationSubjectImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E34BF42D23F9B500BDDF48 /* NotificationSubjectImplTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -270,7 +273,7 @@
 		830ADC3D2D2ABE760053C920 /* TaskLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLauncherImpl.swift; sourceTree = "<group>"; };
 		830ADC3B2D2AB7680053C920 /* FolderContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContent.swift; sourceTree = "<group>"; };
 		831532272D04FDBB0063F0E3 /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
-		8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserControllerTests.swift; sourceTree = "<group>"; };
+		8315327C2D050A170063F0E3 /* FileBrowserControllerImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserControllerImplTests.swift; sourceTree = "<group>"; };
 		8315327F2D050E820063F0E3 /* FileBrowserNavigatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigatorMock.swift; sourceTree = "<group>"; };
 		831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserCellVmFactoryMock.swift; sourceTree = "<group>"; };
 		831532832D050ECD0063F0E3 /* FileSystemMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemMock.swift; sourceTree = "<group>"; };
@@ -387,6 +390,7 @@
 		838F2BE02CFFB79600735166 /* FileBrowserNavigatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigatorImpl.swift; sourceTree = "<group>"; };
 		838F2BE22CFFBA1300735166 /* FileBrowserCellVmFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserCellVmFactory.swift; sourceTree = "<group>"; };
 		838F2BE42CFFBFB100735166 /* NavigationNodeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationNodeFactory.swift; sourceTree = "<group>"; };
+		839317EE2D2D1439006FC901 /* FileDownloadEventBusImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadEventBusImplTests.swift; sourceTree = "<group>"; };
 		8395167B2D01988C00E92EA4 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		839516862D04A74900E92EA4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		839516882D04A76300E92EA4 /* TextFieldImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldImpl.swift; sourceTree = "<group>"; };
@@ -417,6 +421,8 @@
 		839F7B322CF32AF1005BABE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		839F7B352CF32AF1005BABE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		839F7B372CF32AF1005BABE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83A0B1F92D2CA31D006D3BF2 /* FileDownloadEventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadEventBus.swift; sourceTree = "<group>"; };
+		83A0B1FC2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadEventBusMock.swift; sourceTree = "<group>"; };
 		83E34BF42D23F9B500BDDF48 /* NotificationSubjectImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubjectImplTests.swift; sourceTree = "<group>"; };
 		83F9E3CC2CF3BE0A00C7A650 /* BucketRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRepository.swift; sourceTree = "<group>"; };
 		83F9E3CE2CF3C70100C7A650 /* ApiCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCredential.swift; sourceTree = "<group>"; };
@@ -555,7 +561,7 @@
 				8300324F2D2B983D0009CA1A /* model */,
 				830032562D2B9C210009CA1A /* FileBrowserViewMock.swift */,
 				8300324D2D2B97E20009CA1A /* FileBrowserPresenterImplTests.swift */,
-				8315327C2D050A170063F0E3 /* FileBrowserControllerTests.swift */,
+				8315327C2D050A170063F0E3 /* FileBrowserControllerImplTests.swift */,
 				831532812D050E9F0063F0E3 /* FileBrowserCellVmFactoryMock.swift */,
 				8300324B2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift */,
 				830032702D2BED760009CA1A /* controller helpers */,
@@ -918,6 +924,7 @@
 		835B53A82D1B275E00D1719E /* file */ = {
 			isa = PBXGroup;
 			children = (
+				83A0B1F92D2CA31D006D3BF2 /* FileDownloadEventBus.swift */,
 				835B53BB2D1DD67600D1719E /* FileTransferPlacer.swift */,
 				835B53A62D1B25D800D1719E /* FileDownloader.swift */,
 				835B53AC2D1B27A100D1719E /* FileDownloadRequestFactory.swift */,
@@ -1133,6 +1140,8 @@
 				8366EAA52D296C210024CACB /* FileDownloadRequestFactoryMock.swift */,
 				8366EA962D289D2C0024CACB /* FileDownloaderImplTests.swift */,
 				830ADC352D29FA580053C920 /* FileDownloaderMock.swift */,
+				83A0B1FC2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift */,
+				839317EE2D2D1439006FC901 /* FileDownloadEventBusImplTests.swift */,
 			);
 			path = file;
 			sourceTree = "<group>";
@@ -1532,7 +1541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				830032732D2BEE130009CA1A /* FileBrowserControllerTests.swift in Sources */,
+				830032732D2BEE130009CA1A /* FileBrowserControllerImplTests.swift in Sources */,
 				8300327B2D2C19000009CA1A /* BucketRepositoryMock.swift in Sources */,
 				8366EA472D242F980024CACB /* ApiConfigStoreImplTests.swift in Sources */,
 				830032752D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift in Sources */,
@@ -1551,6 +1560,7 @@
 				8300324C2D2B8F050009CA1A /* FileBrowserCellVmFactoryImplTests.swift in Sources */,
 				8366EA932D28821E0024CACB /* FileTransferPlacerImplTests.swift in Sources */,
 				8315328F2D05D5830063F0E3 /* SettingsNavigatorMock.swift in Sources */,
+				839317EF2D2D1439006FC901 /* FileDownloadEventBusImplTests.swift in Sources */,
 				830032872D2C46ED0009CA1A /* TextFieldMock.swift in Sources */,
 				830032772D2BF0A70009CA1A /* FolderContentPaginatorOutputMock.swift in Sources */,
 				8300326B2D2BE8BB0009CA1A /* AlertMock.swift in Sources */,
@@ -1579,6 +1589,7 @@
 				832EB21B2D04E94800A10DD5 /* TestCase+Extensions.swift in Sources */,
 				8366EAA82D2992B70024CACB /* RequestSignerImplTests.swift in Sources */,
 				8366EA552D247AF90024CACB /* AsyncPerformerMock.swift in Sources */,
+				83A0B1FD2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift in Sources */,
 				830032592D2BB1040009CA1A /* FolderContentOutputMock.swift in Sources */,
 				8366EA7B2D2803690024CACB /* RequestSignerMock.swift in Sources */,
 				830032572D2B9C210009CA1A /* FileBrowserViewMock.swift in Sources */,
@@ -1712,6 +1723,7 @@
 				839B50E92D22CF5F003F714C /* HudPresenter.swift in Sources */,
 				839B50EA2D22CF5F003F714C /* FileDownloader.swift in Sources */,
 				839B50EB2D22CF5F003F714C /* HttpClient.swift in Sources */,
+				83A0B1FB2D2CA35A006D3BF2 /* FileDownloadEventBus.swift in Sources */,
 				839B50EC2D22CF5F003F714C /* Transfer.swift in Sources */,
 				839B50ED2D22CF5F003F714C /* RequestSigner.swift in Sources */,
 				839B50EE2D22CF5F003F714C /* HttpTaskImpl.swift in Sources */,
