@@ -25,7 +25,7 @@ final class FileBrowserControllerImpl  {
         notificationSubject: NotificationSubject = NotificationSubjectImpl(),
         mainActorRunner: MainActorRunner = MainActorRunnerImpl(),
         taskLauncher: TaskLauncher = TaskLauncherImpl(),
-        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl(),
+        errorAlertPresenter: ErrorAlertPresenter = ErrorAlertPresenterImpl(),
         downloadEventBus: FileDownloadEventBus = FileDownloadEventBusImpl()
     ) {
         self.path = path
@@ -36,7 +36,7 @@ final class FileBrowserControllerImpl  {
         self.mainActorRunner = mainActorRunner
         self.taskLauncher = taskLauncher
         self.contentPaginator = contentPaginator
-        self.alertBuilderFactory = alertBuilderFactory
+        self.errorAlertPresenter = errorAlertPresenter
         self.downloadEventBus = downloadEventBus
         
         self.contentPaginator.input = self
@@ -54,7 +54,7 @@ final class FileBrowserControllerImpl  {
     private let notificationSubject: NotificationSubject
     private let mainActorRunner: MainActorRunner
     private let taskLauncher: TaskLauncher
-    private let alertBuilderFactory: AlertBuilderFactory
+    private let errorAlertPresenter: ErrorAlertPresenter
     private let downloadEventBus: FileDownloadEventBus
     
     private lazy var repository: BucketRepository = try! repositoryFactory.createBucketRepository()!
@@ -143,7 +143,9 @@ extension FileBrowserControllerImpl: FileBrowserViewOutput {
     func onCellAccessoryTap(at indexPath: IndexPath) {
         let index = indexPath.row
         
-        let path = folderContent.entry(at: index).path
+        let entry = folderContent.entry(at: index)
+        let path = entry.path
+        let initialLoadingState = entry.loadingState
         
         folderContent.setLoadingState(.loading, at: path)
         view?.updateAccessoryViewForRows(at: [indexPath])
@@ -151,15 +153,30 @@ extension FileBrowserControllerImpl: FileBrowserViewOutput {
         taskLauncher.launch { [weak self] in
             guard let self else { return }
             
-            let loadingState = (
-                try? await repository.downloadFile(
+            let loadingState: LoadingState
+            let err: Error?
+            
+            do {
+                loadingState = try await repository.downloadFile(
                     path: path
                 ).loadingState
-            ) ?? .notLoaded
+                err = nil
+            } catch {
+                loadingState = initialLoadingState
+                err = error
+            }
             
             await mainActorRunner.run { [weak self] in
                 guard let self else { return }
 
+                if let err {
+                    errorAlertPresenter.showErrorAlert(
+                        of: err,
+                        with: "File download failed",
+                        on: view?.node
+                    )
+                }
+                
                 folderContent.setLoadingState(loadingState, at: path)
                 view?.updateAccessoryViewForRows(at: [indexPath])
             }
@@ -207,20 +224,11 @@ extension FileBrowserControllerImpl: FolderContentPaginatorOutput {
             )
             
         case .failure(let error):
-            guard let view else {
-                return
-            }
-            
-            let isNetworkingError = (error as NSError).domain == NSURLErrorDomain
-            
-            let msg = isNetworkingError ? "Connectivity error" : "Loading folder content failed"
-            
-            alertBuilderFactory.createAlertBuilder()
-                .setMessage(msg)
-                .build()
-                .show(on: view.node, animated: true)
-            
-            NSLog("\(msg): \(error)")
+            errorAlertPresenter.showErrorAlert(
+                of: error,
+                with: "Loading folder content failed",
+                on: view?.node
+            )
         }
     }
 }

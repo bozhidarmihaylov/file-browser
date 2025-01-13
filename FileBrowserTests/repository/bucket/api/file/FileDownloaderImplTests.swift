@@ -209,9 +209,7 @@ final class FileDownloaderImplTest: XCTestCase {
             taskId: Copy.taskIdentifier,
             with: Copy.httpTransferError
         )
-        
-        let task = taskLauncherMock.launchTasks.last
-        _ = try await task?.value
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
 
@@ -278,9 +276,7 @@ final class FileDownloaderImplTest: XCTestCase {
         let (sut, _, _, _, _, transferDaoMock, _, _, _, taskLauncherMock, _) = createSut()
         
         sut.didRecreateBackgroundSession(with: Copy.downloadTasks)
-        
-        let task = taskLauncherMock.launchTasks.last
-        _ = try await task?.value
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
         
@@ -425,13 +421,7 @@ final class FileDownloaderImplTest: XCTestCase {
             to: Copy.temporaryFileUrl
         )
         
-        let task = taskLauncherMock.launchTasks.last
-        
-        do {
-            _ = try await task?.value
-        } catch {
-            XCTFail("Unexpected error thrown \(error)")
-        }
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
 

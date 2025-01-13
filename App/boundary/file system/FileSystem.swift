@@ -77,6 +77,6 @@ struct FileSystemImpl: FileSystem {
         at atUrl: URL,
         to toUrl: URL
     ) throws {
-        try fileManager.moveItem(at: atUrl, to: toUrl)
+        _ = try fileManager.replaceItemAt(toUrl, withItemAt: atUrl)
     }
 }

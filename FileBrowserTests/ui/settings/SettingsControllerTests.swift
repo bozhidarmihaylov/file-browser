@@ -16,7 +16,7 @@ final class SettingsControllerTests: XCTestCase {
     
     func testCanSave_someFieldIsEmpty_false() {
         for code in 0..<7 {
-            let (sut, _, _, _, _, _, _, _, _) = createSut(
+            let (sut, _, _, _, _, _, _) = createSut(
                 accessKeyEntered: code & 1 != 0,
                 secretKeyEntered: code & 2 != 0,
                 bucketNameEntered: code & 4 != 0
@@ -29,7 +29,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testCanSave_allFieldsEntered_true() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.canSave()
@@ -40,7 +40,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: accessKey()
     
     func testAccessKey_called_textFieldValueReturned() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.accessKey()
@@ -51,7 +51,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: secretKey()
     
     func testSecretKey_called_textFieldValueReturned() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.secretKey()
@@ -62,7 +62,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: bucketName()
     
     func testBucketName_called_textFieldValueReturned() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.bucketName()
@@ -73,7 +73,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: saveDidStart()
     
     func testSaveDidStart_called_hudOnRootViewIsShown() {
-        let (sut, _, _, hudPresenterMock, _, _, _, _, viewMock) = createSut()
+        let (sut, _, _, hudPresenterMock, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.saveDidStart()
@@ -87,7 +87,7 @@ final class SettingsControllerTests: XCTestCase {
     
     func testSaveDidFinish_called_hudFromRootViewIsHidden() {
         for result: Result<Void, Error> in [.success(()), .failure(NSError.mock)] {
-            let (sut, _, _, hudPresenterMock, _, _, _, _, viewMock) = createSut()
+            let (sut, _, _, hudPresenterMock, _, _, viewMock) = createSut()
             _ = viewMock
             
             sut.saveDidFinish(with: result)
@@ -100,7 +100,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testSaveDidFinish_success_forwardNavigated() {
-        let (sut, navigatorMock, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, navigatorMock, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.saveDidFinish(with: .success(()))
@@ -109,29 +109,23 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testSaveDidFinish_failure_errorAlertShown() {
-        for isConnectivityError in [false, true] {
-            let (sut, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock) = createSut()
-            _ = viewMock
-            
-            let error = isConnectivityError ? Copy.connectivityError : NSError.mock
-            let errorMessage = isConnectivityError ? Copy.connectivityErrorMessage : Copy.saveAlertErrorMessage
-            
-            sut.saveDidFinish(with: .failure(error))
-            
-            XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
-            XCTAssertEqual(alertBuilderMock.setMessageCalls.count, 1)
-            XCTAssertEqual(alertBuilderMock.setMessageCalls.last, errorMessage)
-            
-            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
-            XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? AnyObject, viewMock.node as? AnyObject)
-            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
-        }
+        let (sut, _, _, _, _, errorAlertPresenterMock, viewMock) = createSut()
+        _ = viewMock
+        
+        let error = Copy.error
+        
+        sut.saveDidFinish(with: .failure(error))
+        
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.count, 1)
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.error as? NSError, error)
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.message, Copy.saveAlertErrorMessage)
+        XCTAssertIdentical(errorAlertPresenterMock.showErrorAlertCalls.last?.node as? AnyObject, viewMock.node as? AnyObject)
     }
     
     // MARK: onViewLoaded()
     
-    func testSaveDidFinish_called_accessSecretBucketNameTagOrderSet() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+    func testOnViewLoaded_called_accessSecretBucketNameTagOrderSet() {
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             shouldSetTags: false
         )
         _ = viewMock
@@ -143,8 +137,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.bucketNameTextField.tag, 2)
     }
     
-    func testSaveDidFinish_called_secretKeyFieldSetForSecureEntry() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+    func testOnViewLoaded_called_secretKeyFieldSetForSecureEntry() {
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.onViewLoaded()
@@ -154,8 +148,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.bucketNameTextField.isSecureTextEntry, false)
     }
     
-    func testSaveDidFinish_initialConfigIsSet_fieldsUpdatedFromConfig() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+    func testOnViewLoaded_initialConfigIsSet_fieldsUpdatedFromConfig() {
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -167,8 +161,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.bucketNameTextField.text, Copy.config.bucket.name)
     }
     
-    func testSaveDidFinish_initialConfigIsSet_barButtonsAreShown() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+    func testOnViewLoaded_initialConfigIsSet_barButtonsAreShown() {
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -179,8 +173,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.backButtonItem.isHidden, false)
     }
     
-    func testSaveDidFinish_noInitialConfigIsSet_barButtonsAreHidden() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+    func testOnViewLoaded_noInitialConfigIsSet_barButtonsAreHidden() {
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.onViewLoaded()
@@ -189,8 +183,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.backButtonItem.isHidden, true)
     }
     
-    func testSaveDidFinish_initialConfigIsSet_saveButtonIsEnabled() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+    func testOnViewLoaded_initialConfigIsSet_saveButtonIsEnabled() {
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -200,8 +194,8 @@ final class SettingsControllerTests: XCTestCase {
         XCTAssertEqual(viewMock.saveButton.isEnabled, true)
     }
     
-    func testSaveDidFinish_initialConfigIsSet_saveButtonIsDisabled() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut()
+    func testOnViewLoaded_initialConfigIsSet_saveButtonIsDisabled() {
+        let (sut, _, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.onViewLoaded()
@@ -213,7 +207,7 @@ final class SettingsControllerTests: XCTestCase {
     
     func testOnEditingChanged_called_saveButtonStateSynced() {
         for code in 0..<7 {
-            let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+            let (sut, _, _, _, _, _, viewMock) = createSut(
                 accessKeyEntered: code & 1 != 0,
                 secretKeyEntered: code & 2 != 0,
                 bucketNameEntered: code & 4 != 0
@@ -231,7 +225,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: onSave()
     
     func testOnSave_called_savePerformed() {
-        let (sut, _, _, _, saverMock, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, saverMock, _, viewMock) = createSut()
         _ = viewMock
         
         sut.onSave()
@@ -242,7 +236,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: textFieldShouldReturn(at:)
     
     func testFieldShouldReturn_bucketNameField_savePerformed() {
-        let (sut, _, _, _, saverMock, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, saverMock, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.textFieldShouldReturn(at: viewMock.bucketNameTextField)
@@ -252,7 +246,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testFieldShouldReturn_invalidTagField_trueReturned() {
-        let (sut, _, _, _, saverMock, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, saverMock, _, viewMock) = createSut()
         _ = viewMock
         
         viewMock.secretKeyTextField.tag = 5
@@ -263,7 +257,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testFieldShouldReturn_accessKeyFeild_secretKeyFieldFocussed() {
-        let (sut, _, _, _, saverMock, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, saverMock, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.textFieldShouldReturn(at: viewMock.accessKeyTextField)
@@ -274,7 +268,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testFieldShouldReturn_secretKeyFeild_bucketNameFieldFocussed() {
-        let (sut, _, _, _, saverMock, _, _, _, viewMock) = createSut()
+        let (sut, _, _, _, saverMock, _, viewMock) = createSut()
         _ = viewMock
         
         let result = sut.textFieldShouldReturn(at: viewMock.secretKeyTextField)
@@ -287,7 +281,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: onBack()
     
     func testOnBack_called_navigatedBack() {
-        let (sut, navigatorMock, _, _, _, _, _, _, viewMock) = createSut()
+        let (sut, navigatorMock, _, _, _, _, viewMock) = createSut()
         _ = viewMock
         
         sut.onBack()
@@ -298,7 +292,7 @@ final class SettingsControllerTests: XCTestCase {
     // MARK: onLogout()
     
     func testOnLogout_called_configCleared() {
-        let (sut, _, configStoreMock, _, _, _, _, _, viewMock) = createSut(
+        let (sut, _, configStoreMock, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -310,7 +304,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testOnLogout_called_fieldsAreCleared() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -323,7 +317,7 @@ final class SettingsControllerTests: XCTestCase {
     }
     
     func testOnLogout_called_barButtonsAreHidden() {
-        let (sut, _, _, _, _, _, _, _, viewMock) = createSut(
+        let (sut, _, _, _, _, _, viewMock) = createSut(
             initialConfigIsSet: true
         )
         _ = viewMock
@@ -348,9 +342,7 @@ final class SettingsControllerTests: XCTestCase {
         ApiConfigStoreMock,
         HudPresenterMock,
         SettingsSaverMock,
-        AlertBuilderFactoryMock,
-        AlertBuilderMock,
-        AlertMock,
+        ErrorAlertPresenterMock,
         SettingsViewMock
     ) {
         let navigatorMock = SettingsNavigatorMock()
@@ -360,11 +352,7 @@ final class SettingsControllerTests: XCTestCase {
         let hudPresenterMock = HudPresenterMock()
         let saverMock = SettingsSaverMock()
         
-        let alertMock = AlertMock()
-        let alertBuilderMock = AlertBuilderMock()
-        alertBuilderMock.buildResult = alertMock
-        let alertBuilderFactoryMock = AlertBuilderFactoryMock()
-        alertBuilderFactoryMock.createAlertBuilderResult = alertBuilderMock
+        let errorAlertPresenterMock = ErrorAlertPresenterMock()
         
         let viewMock = SettingsViewMock()
         if !initialConfigIsSet {
@@ -383,7 +371,7 @@ final class SettingsControllerTests: XCTestCase {
             configStore: configStoreMock,
             hudPresenter: hudPresenterMock, 
             saver: saverMock,
-            alertBuilderFactory: alertBuilderFactoryMock
+            errorAlertPresenter: errorAlertPresenterMock
         )
         sut.view = viewMock
         
@@ -393,9 +381,7 @@ final class SettingsControllerTests: XCTestCase {
             configStoreMock,
             hudPresenterMock,
             saverMock,
-            alertBuilderFactoryMock,
-            alertBuilderMock,
-            alertMock,
+            errorAlertPresenterMock,
             viewMock
         )
     }
@@ -404,8 +390,7 @@ final class SettingsControllerTests: XCTestCase {
         static let config = ApiConfig.mock
         
         static let saveAlertErrorMessage = "Bucket not found"
-        static let connectivityErrorMessage = "Connectivity error"
         
-        static let connectivityError = NSError(domain: NSURLErrorDomain, code: 1)
+        static let error = NSError.mock
     }
 }

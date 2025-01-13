@@ -47,7 +47,7 @@ final class LoadingStateSyncerImplTests: XCTestCase {
         let (sut, loadingRegistryMock) = createSut()
         loadingRegistryMock.downloadingStatesForPathsInBucketNameResult = []
         
-        let result = try await sut.syncedLoadingStates(for: [])
+        _ = try await sut.syncedLoadingStates(for: [])
         
         XCTAssertEqual(loadingRegistryMock.downloadingStatesForPathsInBucketNameCalls.count, 0)
     }

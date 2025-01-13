@@ -12,7 +12,7 @@ final class FolderContentPaginatorImplTests: XCTestCase {
     func testLoadMore_calledTwice_oncePerformed() async throws {
         let (sut, taskLauncherMock, input, _) = createSut()
         
-        await loadMore(
+        try await loadMore(
             sut,
             taskLauncherMock: taskLauncherMock,
             callTimes: 2
@@ -25,7 +25,7 @@ final class FolderContentPaginatorImplTests: XCTestCase {
     func testLoadMore_notLoadedAllPages_outputDidStartLoadingCalled() async throws {
         let (sut, taskLauncherMock, input, output) = createSut()
         
-        await loadMore(sut, taskLauncherMock: taskLauncherMock)
+        try await loadMore(sut, taskLauncherMock: taskLauncherMock)
 
         XCTAssertEqual(input.loadNextPageCallCount, 1)
         XCTAssertEqual(output.didStartLoadingNewPageCallCount, 1)
@@ -36,7 +36,7 @@ final class FolderContentPaginatorImplTests: XCTestCase {
             hasLoadNextPageError: true
         )
         
-        await loadMore(sut, taskLauncherMock: taskLauncherMock)
+        try await loadMore(sut, taskLauncherMock: taskLauncherMock)
         
         XCTAssertEqual(output.didFinishLoadingNewPageWithResultCalls.count, 1)
         
@@ -53,7 +53,7 @@ final class FolderContentPaginatorImplTests: XCTestCase {
     func testLoadMore_success_entriesReturned() async throws {
         let (sut, taskLauncherMock, input, output) = createSut()
         
-        await loadMore(sut, taskLauncherMock: taskLauncherMock)
+        try await loadMore(sut, taskLauncherMock: taskLauncherMock)
         
         XCTAssertEqual(output.didFinishLoadingNewPageWithResultCalls.count, 1)
         
@@ -72,8 +72,8 @@ final class FolderContentPaginatorImplTests: XCTestCase {
             haveMoreEntries: false
         )
         
-        await loadMore(sut, taskLauncherMock: taskLauncherMock)
-        await loadMore(sut, taskLauncherMock: taskLauncherMock)
+        try await loadMore(sut, taskLauncherMock: taskLauncherMock)
+        try await loadMore(sut, taskLauncherMock: taskLauncherMock)
         
         XCTAssertEqual(output.didStartLoadingNewPageCallCount, 1)
         XCTAssertEqual(input.loadNextPageCallCount, 1)
@@ -121,13 +121,13 @@ final class FolderContentPaginatorImplTests: XCTestCase {
         _ sut: FolderContentPaginatorImpl,
         taskLauncherMock: TaskLauncherMock,
         callTimes: Int = 1
-    ) async {
+    ) async throws {
         for _ in 0..<callTimes {
             sut.loadMore()
         }
               
         for task in taskLauncherMock.launchTasks {
-            _ = await task.result
+            _ = try await task.result.get()
         }
     }
     

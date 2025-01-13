@@ -202,6 +202,9 @@
 		83A0B1FB2D2CA35A006D3BF2 /* FileDownloadEventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0B1F92D2CA31D006D3BF2 /* FileDownloadEventBus.swift */; };
 		83A0B1FD2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0B1FC2D2CAEAD006D3BF2 /* FileDownloadEventBusMock.swift */; };
 		83E34BF52D23F9B500BDDF48 /* NotificationSubjectImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E34BF42D23F9B500BDDF48 /* NotificationSubjectImplTests.swift */; };
+		83FBE52C2D32E27F001A9D2C /* ErrorAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE52A2D32E27F001A9D2C /* ErrorAlertPresenter.swift */; };
+		83FBE52F2D32E347001A9D2C /* ErrorAlertPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE52E2D32E347001A9D2C /* ErrorAlertPresenterMock.swift */; };
+		83FBE5312D32E3F6001A9D2C /* ErrorAlertPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE5302D32E3F6001A9D2C /* ErrorAlertPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -428,6 +431,9 @@
 		83F9E3CE2CF3C70100C7A650 /* ApiCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCredential.swift; sourceTree = "<group>"; };
 		83F9E3D02CF3C74C00C7A650 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
 		83F9E3D62CF3D46A00C7A650 /* ArrayAsyncSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayAsyncSequence.swift; sourceTree = "<group>"; };
+		83FBE52A2D32E27F001A9D2C /* ErrorAlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenter.swift; sourceTree = "<group>"; };
+		83FBE52E2D32E347001A9D2C /* ErrorAlertPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenterMock.swift; sourceTree = "<group>"; };
+		83FBE5302D32E3F6001A9D2C /* ErrorAlertPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,6 +554,7 @@
 		831532782D0509520063F0E3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				83FBE52D2D32E337001A9D2C /* common */,
 				831532792D05096F0063F0E3 /* file browser */,
 				8315327A2D0509770063F0E3 /* settings */,
 			);
@@ -1058,6 +1065,7 @@
 		835E401B2CF9082400A2186A /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				83FBE52B2D32E27F001A9D2C /* common */,
 				83314EC72CFD3E590057906F /* file browser */,
 				83314EC82CFD3E650057906F /* settings */,
 				838F2BE42CFFBFB100735166 /* NavigationNodeFactory.swift */,
@@ -1385,6 +1393,23 @@
 			path = repository;
 			sourceTree = "<group>";
 		};
+		83FBE52B2D32E27F001A9D2C /* common */ = {
+			isa = PBXGroup;
+			children = (
+				83FBE52A2D32E27F001A9D2C /* ErrorAlertPresenter.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		83FBE52D2D32E337001A9D2C /* common */ = {
+			isa = PBXGroup;
+			children = (
+				83FBE52E2D32E347001A9D2C /* ErrorAlertPresenterMock.swift */,
+				83FBE5302D32E3F6001A9D2C /* ErrorAlertPresenterTests.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1545,11 +1570,13 @@
 				8300327B2D2C19000009CA1A /* BucketRepositoryMock.swift in Sources */,
 				8366EA472D242F980024CACB /* ApiConfigStoreImplTests.swift in Sources */,
 				830032752D2BEFB40009CA1A /* FolderContentPaginatorImplTests.swift in Sources */,
+				83FBE52F2D32E347001A9D2C /* ErrorAlertPresenterMock.swift in Sources */,
 				831532802D050E820063F0E3 /* FileBrowserNavigatorMock.swift in Sources */,
 				830032792D2BF21A0009CA1A /* FolderContentPaginatorInputMock.swift in Sources */,
 				8366EA532D24684A0024CACB /* BlankAsyncSequence.swift in Sources */,
 				8366EAA42D2955630024CACB /* HttpTaskMock.swift in Sources */,
 				833D80F42D2B4C33005D817C /* Date+mock.swift in Sources */,
+				83FBE5312D32E3F6001A9D2C /* ErrorAlertPresenterTests.swift in Sources */,
 				8366EA9B2D28A2980024CACB /* FileTransferPlacerMock.swift in Sources */,
 				831532882D050F1A0063F0E3 /* NotificationSubjectMock.swift in Sources */,
 				830032512D2B98560009CA1A /* FolderContentMock.swift in Sources */,
@@ -1705,6 +1732,7 @@
 				839B50D52D22CF5F003F714C /* ActorAsyncPerformerImpl.swift in Sources */,
 				839B50D62D22CF5F003F714C /* NavigationNodeImpl.swift in Sources */,
 				839B50D72D22CF5F003F714C /* ButtonItemImpl.swift in Sources */,
+				83FBE52C2D32E27F001A9D2C /* ErrorAlertPresenter.swift in Sources */,
 				839B50D82D22CF5F003F714C /* XmlDecoderImpl.swift in Sources */,
 				839B50D92D22CF5F003F714C /* ApiCredential.swift in Sources */,
 				839B50DA2D22CF5F003F714C /* LoadingStateSyncer.swift in Sources */,

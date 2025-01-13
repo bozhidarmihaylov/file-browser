@@ -13,7 +13,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onInit()
     
     func testOnInit_called_subsribesToWillEnterForegroundNotification() throws {
-        let (sut, _, _, _, _, _, _, _, noteSubject, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, _, noteSubject, _, _, _, _, _) = createSut()
 
         sut.onInit()
         
@@ -26,15 +26,14 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnInit_enterForegroundEvent_loadingStatesSyncedWithView() async throws {
-        let (sut, folderContentMock, _, _, _, _, _, _, noteSubject, _, taskLauncherMock, _, _, _, viewMock, _) = createSut(
+        let (sut, folderContentMock, _, _, _, _, _, _, noteSubject, _, taskLauncherMock, _, viewMock, _) = createSut(
             userRealNotificationSubject: true
         )
 
         sut.onInit()
         
         noteSubject.send(name: Copy.willEnterBackgroundNotificationName)
-        
-        await _ = taskLauncherMock.launchTasks.last?.result
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
         XCTAssertEqual(folderContentMock.syncLoadingStatesCallCount, 1)
@@ -42,7 +41,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnInit_enterForegroundEventAndSyncLoadingStatesError_accessoryViewsNotUpdated() async throws {
-        let (sut, folderContentMock, _, _, _, _, _, _, noteSubject, _, taskLauncherMock, _, _, _, viewMock, _) = createSut(
+        let (sut, folderContentMock, _, _, _, _, _, _, noteSubject, _, taskLauncherMock, _, viewMock, _) = createSut(
             userRealNotificationSubject: true,
             hasSyncLoadingStatesError: true
         )
@@ -51,12 +50,10 @@ final class FileBrowserControllerImplTests: XCTestCase {
         
         noteSubject.send(name: Copy.willEnterBackgroundNotificationName)
         
-        let result = await taskLauncherMock.launchTasks.last?.result
-        
-        if case .failure(let error) = result {
+        await assertThrowsAsyncError(
+            try await taskLauncherMock.awaitTasks()
+        ) { error in
             XCTAssertEqual(error as NSError, Copy.loadingStatesError)
-        } else {
-            XCTFail("Expected failure, success received")
         }
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
@@ -65,7 +62,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnInit_called_downloadInFolderUpdatesSubscribed() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, _, downloadEventBusMock) = createSut()
+        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, downloadEventBusMock) = createSut()
         
         sut.onInit()
         
@@ -74,7 +71,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     
     func testOnInit_downloadCompleteNotification_loadingStatesSyncedWithView() async throws {
         for hasError in [false, true] {
-            let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, _, _, viewMock, downloadEventBusMock) = createSut()
+            let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, viewMock, downloadEventBusMock) = createSut()
             
             sut.onInit()
             
@@ -92,11 +89,10 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onViewAppeared()
     
     func testOnViewAppeared_called_loadingStatesSyncedWithView() async throws {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, _, _, viewMock, _) = createSut()
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, viewMock, _) = createSut()
 
         sut.onViewAppeared()
-        
-        await _ = taskLauncherMock.launchTasks.last?.result
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
         XCTAssertEqual(folderContentMock.syncLoadingStatesCallCount, 1)
@@ -104,18 +100,16 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnViewAppeared_syncLoadingStatesError_loadingStatesNotSyncedWithView() async throws {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, _, _, viewMock, _) = createSut(
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, viewMock, _) = createSut(
             hasSyncLoadingStatesError: true
         )
 
         sut.onViewAppeared()
         
-        let result = await taskLauncherMock.launchTasks.last?.result
-        
-        if case .failure(let error) = result {
+        await assertThrowsAsyncError(
+            try await taskLauncherMock.awaitTasks()
+        ) { error in
             XCTAssertEqual(error as NSError, Copy.loadingStatesError)
-        } else {
-            XCTFail("Expected failure, success received")
         }
         
         XCTAssertEqual(taskLauncherMock.launchTasks.count, 1)
@@ -126,7 +120,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onDeinit()
     
     func testOnDeinit_called_enterForegroundSubscriptionCanceled() {
-        let (sut, _, _, _, _, _, _, _, noteSubject, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, _, noteSubject, _, _, _, _, _) = createSut()
         let subscription = (noteSubject as? NotificationSubjectMock)?
             .subscribeNameObjectOnEventResult as? CancelllableMock
         
@@ -137,7 +131,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnDeinit_called_downloadCompleteInFolderEventSubscriptionCanceled() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, _, downloadEventBusMock) = createSut()
+        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, downloadEventBusMock) = createSut()
         
         let subscription = downloadEventBusMock.subscribeParentPathOnEventResult as? CancelllableMock
         
@@ -150,7 +144,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onViewLoaded()
     
     func testOnViewLoaded_called_contentPageLoadingStarted() {
-        let (sut, _, _, _, bucketRepositoryMock, _, _, contentPaginatorMock, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, bucketRepositoryMock, _, _, contentPaginatorMock, _, _, _, _, _, _) = createSut()
         
         sut.onViewLoaded()
         
@@ -163,7 +157,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onRightButtonItemTap()
     
     func testOnRightButtonItemTap_called_sentsItToNavigator() {
-        let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _) = createSut()
         
         sut.onRightButtonItemTap()
         
@@ -174,7 +168,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
 
     func testOnCellTap_called_cellIsDeselected() {
         for isFolder in [false, true] {
-            let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
+            let (sut, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
             
             let indexPath = isFolder
                 ? Copy.folderIndexPath
@@ -188,7 +182,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnCellTap_isFolder_navigated() {
-        let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _) = createSut()
         
         let indexPath = Copy.folderIndexPath
         sut.onCellTap(at: indexPath)
@@ -200,7 +194,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     
     func testOnCellTap_notLoadedFile_notNavigated() {
         for loadingState: LoadingState in [.notLoaded, .loading] {
-            let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
+            let (sut, _, navigatorMock, _, _, _, _, _, _, _, _, _, _, _) = createSut(
                 fileLoadingState: loadingState
             )
 
@@ -213,7 +207,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testOnCellTap_loadedFile_navigated() {
-        let (sut, folderContentMock, navigatorMock, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, folderContentMock, navigatorMock, _, _, _, _, _, _, _, _, _, _, _) = createSut()
         
         let entry = Copy.file.copy(loadingState: .loaded)
         
@@ -230,7 +224,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: onCellAccessoryTap(at:)
     
     func testOnCellAccessoryTap_called_setToLoadingState() {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
         
         sut.onCellAccessoryTap(at: Copy.fileIndexPath)
                 
@@ -239,13 +233,13 @@ final class FileBrowserControllerImplTests: XCTestCase {
         XCTAssertEqual(viewMock.updateAccessoryViewForRowsAtIndexPathsCalls.first, [Copy.fileIndexPath])
     }
     
-    func testOnCellAccessoryTap_downloadSuccess_setToLoadedState() async {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, _, _, viewMock, _) = createSut()
+    func testOnCellAccessoryTap_downloadSuccess_setToLoadedState() async throws {
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, viewMock, _) = createSut()
         
         let indexPath = Copy.fileIndexPath
         sut.onCellAccessoryTap(at: indexPath)
         
-        _ = await taskLauncherMock.launchTasks.last?.result
+        try await taskLauncherMock.awaitTasks()
         
         XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map (\.loadingState), [.loading, .loaded])
         XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map(\.path), Array(repeating: Copy.file.path, count: 2))
@@ -253,26 +247,48 @@ final class FileBrowserControllerImplTests: XCTestCase {
         XCTAssertEqual(viewMock.updateAccessoryViewForRowsAtIndexPathsCalls, [[indexPath], [indexPath]])
     }
     
-    func testOnCellAccessoryTap_downloadFailed_setToNotLoadedState() async {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, _, _, viewMock, _) = createSut(
-            hasFileDownloadError: true
-        )
-        
-        let indexPath = Copy.fileIndexPath
-        sut.onCellAccessoryTap(at: indexPath)
-        
-        _ = await taskLauncherMock.launchTasks.last?.result
-        
-        XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map (\.loadingState), [.loading, .notLoaded])
-        XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map(\.path), Array(repeating: Copy.file.path, count: 2))
-        
-        XCTAssertEqual(viewMock.updateAccessoryViewForRowsAtIndexPathsCalls, [[indexPath], [indexPath]])
+    func testOnCellAccessoryTap_downloadFailed_setToPreviousLoadedState() async throws {
+        for previousState: LoadingState in [.notLoaded, .loaded] {
+            let (sut, folderContentMock, _, _, _, _, _, _, _, _, taskLauncherMock, _, viewMock, _) = createSut(
+                fileLoadingState: previousState,
+                hasFileDownloadError: true
+            )
+            
+            let indexPath = Copy.fileIndexPath
+            sut.onCellAccessoryTap(at: indexPath)
+            
+            try await taskLauncherMock.awaitTasks()
+            
+            XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map (\.loadingState), [.loading, previousState])
+            XCTAssertEqual(folderContentMock.setLoadingStateAtPathCalls.map(\.path), Array(repeating: Copy.file.path, count: 2))
+            
+            XCTAssertEqual(viewMock.updateAccessoryViewForRowsAtIndexPathsCalls, [[indexPath], [indexPath]])
+        }
+    }
+    
+    func testOnCellAccessoryTap_downloadFailed_errorAlertShown() async throws {
+        for previousState: LoadingState in [.notLoaded, .loaded] {
+            let (sut, _, _, _, _, _, _, _, _, _, taskLauncherMock, errorAlertPresenterMock, viewMock, _) = createSut(
+                fileLoadingState: previousState,
+                hasFileDownloadError: true
+            )
+            
+            let indexPath = Copy.fileIndexPath
+            sut.onCellAccessoryTap(at: indexPath)
+            
+            try await taskLauncherMock.awaitTasks()
+
+            XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.count, 1)
+            XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.error as? NSError, Copy.fileDownloadError)
+            XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.message, Copy.fileDownloadFailedErrorMessage)
+            XCTAssertIdentical(errorAlertPresenterMock.showErrorAlertCalls.last?.node as? AnyObject, viewMock.node as AnyObject)
+        }
     }
     
     // MARK: shouldHighlightRow(at:)
     
     func testShouldHighlightRow_isFolder_trueReturned() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
+        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
             hasFileDownloadError: true
         )
         
@@ -282,7 +298,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testShouldHighlightRow_isLoadedFile_trueReturned() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
+        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
             fileLoadingState: .loaded
         )
         
@@ -293,7 +309,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     
     func testShouldHighlightRow_isNotLoadedFile_falseReturned() {
         for loadingState: LoadingState in [.notLoaded, .loading] {
-            let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
+            let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut(
                 fileLoadingState: loadingState
             )
             
@@ -306,7 +322,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: willDisplayCell(at:)
     
     func testWillDisplayCell_last_nextContentPageLoadingStarted() {
-        let (sut, _, _, _, _, _, _, contentPaginatorMock, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, contentPaginatorMock, _, _, _, _, _, _) = createSut()
         
         let indexPath = Copy.lastEntryIndexPath
         
@@ -316,7 +332,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testWillDisplayCell_notLast_nextContentPageLoadingNotStarted() {
-        let (sut, _, _, _, _, _, _, contentPaginatorMock, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, _, contentPaginatorMock, _, _, _, _, _, _) = createSut()
         
         let indexPath = prevIndexPath(Copy.lastEntryIndexPath)
         
@@ -328,7 +344,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: loadNextPage()
     
     func testLoadNextPage_success_nextPageFromSequenceRetrieved() async throws {
-        let (sut, _, _, _, _, _, pageIteratorMock, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, _, _, _, _, _, pageIteratorMock, _, _, _, _, _, _, _) = createSut()
         
         sut.onViewLoaded()
         let entries = try await sut.loadNextPage()
@@ -338,7 +354,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testLoadNextPage_fetchNextPageError_errorReturned() async throws {
-        let (sut, _, _, _, _, _, pageIteratorMock, _, _, _, _, _, _, _, _, _) = createSut(
+        let (sut, _, _, _, _, _, pageIteratorMock, _, _, _, _, _, _, _) = createSut(
             hasFetchNextPageError: true
         )
         
@@ -356,7 +372,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     // MARK: didFinishLoadingNewPage(with:)
     
     func testDidFinishLoadingNewPage_success_entriesAppended() {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = createSut()
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, _, _) = createSut()
         let entries = Copy.entries
         
         sut.didFinishLoadingNewPage(with: .success(entries))
@@ -366,7 +382,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testDidFinishLoadingNewPage_firstPageSuccess_viewDataReloaded() {
-        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
+        let (sut, folderContentMock, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
         folderContentMock.numberOfEntriesResult = 0
         
         let entries = Copy.entries
@@ -378,7 +394,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testDidFinishLoadingNewPage_nextPageSuccess_newCellsAppended() {
-        let (sut, _, _, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
+        let (sut, _, _, _, _, _, _, _, _, _, _, _, viewMock, _) = createSut()
         
         let entries = Copy.entries
         
@@ -391,22 +407,17 @@ final class FileBrowserControllerImplTests: XCTestCase {
     }
     
     func testDidFinishLoadingNewPage_failure_alertMessageShown() {
-        for isConnectivityError in [false, true] {
-            let (sut, _, _, _, _, _, _, _, _, _, _, alertBuilderFactoryMock, alertBuilderMock, alertMock, viewMock, _) = createSut()
-            
-            let error = isConnectivityError ? Copy.connectivityError : NSError.mock
-            let errorMessage = isConnectivityError ? Copy.connectivityErrorMessage : Copy.loadingFolderFailedErrorMessage
-            
-            sut.didFinishLoadingNewPage(with: .failure(error))
-            
-            XCTAssertEqual(alertBuilderFactoryMock.createAlertBuilderCallCount, 1)
-            XCTAssertEqual(alertBuilderMock.setMessageCalls, [errorMessage])
-            XCTAssertEqual(alertBuilderMock.buildCallCount, 1)
-            
-            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.count, 1)
-            XCTAssertIdentical(alertMock.showOnNodeAnimatedCalls.last?.node as? NodeMock, viewMock.node as? NodeMock)
-            XCTAssertEqual(alertMock.showOnNodeAnimatedCalls.last?.animated, true)
-        }
+        let (sut, _, _, _, _, _, _, _, _, _, _, errorAlertPresenterMock, viewMock, _) = createSut()
+        
+        let error = NSError.mock
+        let errorMessage = Copy.loadingFolderFailedErrorMessage
+        
+        sut.didFinishLoadingNewPage(with: .failure(error))
+        
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.count, 1)
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.error as? NSError, error)
+        XCTAssertEqual(errorAlertPresenterMock.showErrorAlertCalls.last?.message, errorMessage)
+        XCTAssertIdentical(errorAlertPresenterMock.showErrorAlertCalls.last?.node as? AnyObject, viewMock.node as AnyObject)
     }
     
     // MARK: Helper methods
@@ -429,9 +440,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
         NotificationSubject,
         MainActorRunnerMock,
         TaskLauncherMock,
-        AlertBuilderFactoryMock,
-        AlertBuilderMock,
-        AlertMock,
+        ErrorAlertPresenterMock,
         FileBrowserViewMock,
         FileDownloadEventBusMock
     ) {
@@ -486,13 +495,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
         let mainActorRunnerMock = MainActorRunnerMock()
         let taskLauncherMock = TaskLauncherMock()
         
-        let alertMock = AlertMock()
-        
-        let alertBuilderMock = AlertBuilderMock()
-        alertBuilderMock.buildResult = alertMock
-        
-        let alertBuilderFactoryMock = AlertBuilderFactoryMock()
-        alertBuilderFactoryMock.createAlertBuilderResult = alertBuilderMock
+        let errorAlertPresenterMock = ErrorAlertPresenterMock()
         
         let viewMock = FileBrowserViewMock()
         viewMock.nodeResult = NodeMock()
@@ -508,7 +511,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
             notificationSubject: notificationSubject,
             mainActorRunner: mainActorRunnerMock,
             taskLauncher: taskLauncherMock,
-            alertBuilderFactory: alertBuilderFactoryMock,
+            errorAlertPresenter: errorAlertPresenterMock,
             downloadEventBus: downloadEventBusMock
         )
         sut.view = viewMock
@@ -525,9 +528,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
             notificationSubject,
             mainActorRunnerMock,
             taskLauncherMock,
-            alertBuilderFactoryMock,
-            alertBuilderMock,
-            alertMock,
+            errorAlertPresenterMock,
             viewMock,
             downloadEventBusMock
         )
@@ -569,9 +570,7 @@ final class FileBrowserControllerImplTests: XCTestCase {
             section: 0
         )
         static let loadingFolderFailedErrorMessage = "Loading folder content failed"
-        static let connectivityErrorMessage = "Connectivity error"
-        
-        static let connectivityError = NSError(domain: NSURLErrorDomain, code: 1)
+        static let fileDownloadFailedErrorMessage = "File download failed"
     }
 }
 

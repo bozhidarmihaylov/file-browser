@@ -9,10 +9,14 @@ import Foundation
 @testable import App
 
 final class TaskLauncherMock: TaskLauncher {
+    private(set) var launchCallPriorities: [TaskPriority] = []
     private(set) var launchTasks: [Task<Sendable, Error>] = []
     func launch<T: Sendable>(
+        priority: TaskPriority,
         _ closure: @escaping () async throws -> T
     ) -> Task<T, Error> {
+        launchCallPriorities.append(priority)
+        
         let task = Task.detached {
             try await closure()
         }

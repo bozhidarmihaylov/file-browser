@@ -26,13 +26,13 @@ final class SettingsControllerImpl: SettingsController {
         configStore: ApiConfigStore = ApiConfigStoreImpl.shared,
         hudPresenter: HudPresenter = HudPresenterImpl(),
         saver: SettingsSaver = SettingsSaverImpl(),
-        alertBuilderFactory: AlertBuilderFactory = AlertBuilderFactoryImpl()
+        errorAlertPresenter: ErrorAlertPresenter = ErrorAlertPresenterImpl()
     ) {
         self.navigator = navigator
         self.configStore = configStore
         self.hudPresenter = hudPresenter
         self.saver = saver
-        self.alertBuilderFactory = alertBuilderFactory
+        self.errorAlertPresenter = errorAlertPresenter
         
         self.saver.input = self
         self.saver.output = self
@@ -45,7 +45,7 @@ final class SettingsControllerImpl: SettingsController {
 
     private let hudPresenter: HudPresenter
     private let saver: SettingsSaver
-    private let alertBuilderFactory: AlertBuilderFactory
+    private let errorAlertPresenter: ErrorAlertPresenter
     
     private var loaderTask: Task<Void, Never>? = nil
 
@@ -107,14 +107,11 @@ extension SettingsControllerImpl: SettingsSaverOutput {
             navigator.goForward()
             
         case .failure(let error):
-            guard let node = view?.node else { return }
-            
-            let isNetworkingError = (error as NSError).domain == NSURLErrorDomain
-            
-            alertBuilderFactory.createAlertBuilder()
-                .setMessage(isNetworkingError ? "Connectivity error" : "Bucket not found")
-                .build()
-                .show(on: node, animated: true)
+            errorAlertPresenter.showErrorAlert(
+                of: error,
+                with: "Bucket not found",
+                on: view?.node
+            )
         }
     }
 }
